@@ -16,6 +16,7 @@ public class windowProp : MonoBehaviour{
     public Sprite barImage, windowIcon;
     public string windowName;
     public bool isMinimized = false;
+    public GameObject icon;
 
     GameObject theBar;
     GameObject theWindowContent;
@@ -40,12 +41,14 @@ public class windowProp : MonoBehaviour{
         theButtonMinimize = gameObject.transform.Find("windowButtonMinimize").gameObject;
         theButtonClose = gameObject.transform.Find("windowButtonClose").gameObject;
 
-
+       
 
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
+        gameObject.transform.localScale = new Vector2((float)Screen.height / 600, (float)Screen.height / 600);
         theWindowContent.GetComponent<RectTransform>().sizeDelta = new Vector2(windowWidth,windowHeight); //setting dynamically the size of the window
 
         if (gameObject.transform.GetSiblingIndex() + 1 == gameObject.transform.parent.childCount)         //handler for focus priority

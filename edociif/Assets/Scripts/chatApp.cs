@@ -9,7 +9,7 @@ public class chatApp : MonoBehaviour {
 
 	GameObject inputName, setName, chatLog, inputMessage, sendMessage, scrollRect;
 
-	public String senderName;
+	public string senderName;
 
 	// Use this for initialization
 	void Start(){
@@ -40,15 +40,19 @@ public class chatApp : MonoBehaviour {
 		//listeners for button clicks
 		setNameButton.onClick.AddListener(delegate{setNameFunction(inputNameField,chatLogText);});
 		sendMessageButton.onClick.AddListener(delegate{sendMessageFunction(inputMessageField,chatLogText);});
-	}
+        senderName = gameObject.transform.parent.GetComponent<windowProp>().icon.GetComponent<globalName>().Name;
+
+    }
 
 	void setNameFunction(InputField inputNameField, Text chatLogText){
 		if(inputNameField.text != "") {
-			senderName = inputNameField.text;
-         	chatLogText.text += "\nName changed to: " + senderName;
-         	inputNameField.text = "";
-			//set focus to previous field
-			inputNameField.Select();
+            senderName = inputNameField.text;
+            chatLogText.text += "\nName changed to: " + senderName;
+            inputNameField.text = "";
+            gameObject.transform.parent.GetComponent<windowProp>().icon.GetComponent<globalName>().Name = senderName;
+            
+            //set focus to previous field
+            inputNameField.Select();
  			inputNameField.ActivateInputField();
 			//update position of scroll area to show latest text
 			Canvas.ForceUpdateCanvases();

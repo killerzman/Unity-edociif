@@ -5,7 +5,43 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/scene1.unity
+    path: Assets/Scenes/Menu.unity
+    guid: 54a6204ef66dc304cb5e64c651076391
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: c1e936df7751cb4469db8d5aedd808be
+  - enabled: 1
+    path: Assets/Scenes/SelectDay.unity
+    guid: 43285d9a3b0fede4eb85fae288d19091
+  - enabled: 1
+    path: Assets/Scenes/Level1.unity
     guid: 208d6d75fd3c7194a9f25e59b6debb62
+  - enabled: 1
+    path: Assets/Scenes/Level2.unity
+    guid: 817d7fc66686e5a4dab6f8a6c4816225
+  - enabled: 1
+    path: Assets/Scenes/Level3.unity
+    guid: 99c070e111522b0459b70f91267214bf
+  - enabled: 1
+    path: Assets/Scenes/Level4.unity
+    guid: fe06f72bf451f33458576fb333df92cd
+  - enabled: 1
+    path: Assets/Scenes/Level5.unity
+    guid: 372f9aa3fb6408747a382fe8630dd9e6
+  - enabled: 1
+    path: Assets/Scenes/Level6.unity
+    guid: 84624206dc39d7a488c819594c4831f9
+  - enabled: 1
+    path: Assets/Scenes/Level7.unity
+    guid: 63acb97e237ac2440b170c64314906f4
+  - enabled: 1
+    path: Assets/Scenes/Level8.unity
+    guid: 414ef8f4f4ef24f4eb575127ba6a6a17
+  - enabled: 1
+    path: Assets/Scenes/Level9.unity
+    guid: e1299f8f80f1666449a2a4c4af0c4190
   m_configObjects: {}

@@ -14,6 +14,8 @@ public class buttonClose : MonoBehaviour {
 
     void closeWindow(){
         //destroy the window object and the taskbar icon object on closing
+        if(window.GetComponent<windowProp>().icon)
+            window.GetComponent<windowProp>().icon.GetComponent<createWindow>().duplicates--; // reduce the number of duplicates
         Destroy(window);
         Destroy(transform.parent.GetComponent<windowProp>().referenceTaskbarSlot);
     }
