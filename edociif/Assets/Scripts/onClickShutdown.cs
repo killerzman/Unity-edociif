@@ -19,6 +19,7 @@ public class onClickShutdown : MonoBehaviour {
 	}
 	
 	void showShutdown(){
+		//show hidden panel informing about shutting down and delay scene loading
 		restartOrShutdownPanel.GetComponent<CanvasGroup>().alpha = 1;
         restartOrShutdownPanel.GetComponent<CanvasGroup>().interactable = true;
         restartOrShutdownPanel.GetComponent<CanvasGroup>().blocksRaycasts = true;
@@ -28,6 +29,7 @@ public class onClickShutdown : MonoBehaviour {
 	}
 
 	public IEnumerator delaySceneThenLoad(string changeToScene, float waitAndSwitchToScene){
+			//load the menu after waiting a number of seconds
 		    yield return new WaitForSeconds(waitAndSwitchToScene);
 		    SceneManager.LoadScene(changeToScene);
 	}

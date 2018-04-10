@@ -23,7 +23,7 @@ public class createWindow : MonoBehaviour, IPointerDownHandler {
     void Update()
     {
         if(resizeable)
-          gameObject.transform.localScale = new Vector2((float)Screen.height / 1200, (float)Screen.height / 1200);
+          gameObject.transform.localScale = new Vector2((float)Screen.height / 1200, (float)Screen.height / 1200);//dynamic resize for icons that allow it
     }
     public IEnumerator countdown()          //time limit for a successful double click
     {
@@ -41,10 +41,11 @@ public class createWindow : MonoBehaviour, IPointerDownHandler {
 
         else
         {
-            if ((isUnique == true && duplicates == 0) || isUnique == false)
+            //if is unique it can have no duplicates created, so he will be the only window.
+            if ((isUnique && duplicates == 0) || isUnique == false)
             { 
                 GameObject windowClone = (GameObject)Instantiate(windowPrefab);     //create the window and save the reference
-                windowClone.transform.localScale = new Vector2((float)Screen.height / 600, (float)Screen.height / 600);
+                windowClone.transform.localScale = new Vector2((float)Screen.height / 600, (float)Screen.height / 600);// starting size depending on curent resolution.
                 windowClone.transform.SetParent(windowReference.transform, false);   //assign it to parent
                 windowClone.transform.localPosition = new Vector2(0, 0);
 
@@ -62,12 +63,13 @@ public class createWindow : MonoBehaviour, IPointerDownHandler {
 
                 if(talkapp)
                 {
-                    //Fl=Friend list
+                    //Fl=Friend list;
                     Fl = windowClone.transform.Find("windowContent").gameObject.transform.Find("FriendList").gameObject;
-                    Fl.GetComponent<AssignFriends>().windowReference = windowReference;
-                    Fl.GetComponent<AssignFriends>().iconReference = iconReference;
+                    //assign the windowReference to the Friend list so he can assing them to the friends
+                    Fl.GetComponent<assignFriends>().windowReference = windowReference;
+                    Fl.GetComponent<assignFriends>().iconReference = iconReference;
                 }
-                duplicates++;
+                duplicates++;// one more instance was created
             }
         }
     }

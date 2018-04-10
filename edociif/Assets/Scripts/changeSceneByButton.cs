@@ -24,12 +24,14 @@ public class changeSceneByButton : MonoBehaviour {
 	}
 
 	public void loadScene(){
+		//fade out menu audio if we're on a certain scene and not press a certain button
 		if(SceneManager.GetActiveScene().name == "SelectDay" && (btn.name != "backToMenu")){
 			if(GameObject.FindGameObjectWithTag("menuBackgroundMusic") != null){
 				audioToFadeOut = GameObject.FindGameObjectWithTag("menuBackgroundMusic").GetComponent<AudioSource>();
 				StartCoroutine(fadeOutAudio(audioToFadeOut,fadeOutDuration));
 			}
 		}
+		//delay scene by the number of seconds it takes the audio to fade out
 		StartCoroutine(delaySceneThenLoad(changeToScene,waitBeforeSwitchScene));
 	}
 
@@ -37,12 +39,14 @@ public class changeSceneByButton : MonoBehaviour {
 		if(audioToFadeOut != null){
 			float startVolume = audioToFadeOut.volume;
 	
+			//set the audio's volume lower every update
 			while (audioToFadeOut.volume > 0) {
 				audioToFadeOut.volume -= startVolume * Time.deltaTime / fadeOutDuration;
 	
 				yield return null;
 			}
-	
+
+			//stop the audio and set back the volume to normal
 			audioToFadeOut.Stop ();
 			audioToFadeOut.volume = startVolume;
 		}

@@ -13,6 +13,7 @@ public class resetAndPressNo : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		//this is for the reset game button in the select level screen
 		btn = gameObject.GetComponent<Button>();
 		confirmationObj = GameObject.Find("confirmation").gameObject;
 		resetText = GameObject.Find("resetGameText").GetComponent<Text>();
@@ -22,6 +23,7 @@ public class resetAndPressNo : MonoBehaviour {
 	
 	// Update is called once per frame
 	void onNo(){
+		//if no is pressed, set everything back to normal
 		resetGameButton.GetComponent<Image>().enabled = true;
 		resetGameButton.GetComponent<Button>().enabled = true;
 		resetText.enabled = true;

@@ -14,6 +14,7 @@ public class resetAndPressYes : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		//this is for the reset game button in the select level screen
 		btn = gameObject.GetComponent<Button>();
 		confirmationObj = GameObject.Find("confirmation").gameObject;
 		resetText = GameObject.Find("resetGameText").GetComponent<Text>();
@@ -23,6 +24,7 @@ public class resetAndPressYes : MonoBehaviour {
 	}
 	
 	void onYes(){
+		//if yes is pressed, change the game progress to 1 (empty save state)
 		resetGameButton.GetComponent<Image>().enabled = true;
 		resetGameButton.GetComponent<Button>().enabled = true;
 		resetText.enabled = true;

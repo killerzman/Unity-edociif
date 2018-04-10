@@ -19,6 +19,7 @@ public class onClickRestart : MonoBehaviour {
 	}
 	
 	void showRestart(){
+		//show hidden panel informing about restarting and delay scene loading
 		restartOrShutdownPanel.GetComponent<CanvasGroup>().alpha = 1;
         restartOrShutdownPanel.GetComponent<CanvasGroup>().interactable = true;
         restartOrShutdownPanel.GetComponent<CanvasGroup>().blocksRaycasts = true;
@@ -28,6 +29,7 @@ public class onClickRestart : MonoBehaviour {
 	}
 
 	public IEnumerator delaySceneThenLoad(string changeToScene, float waitAndSwitchToScene){
+			//load the current scene again after a number of seconds
 		    yield return new WaitForSeconds(waitAndSwitchToScene);
 		    SceneManager.LoadScene(changeToScene);
 	}
