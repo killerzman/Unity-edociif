@@ -61,7 +61,7 @@ public class createWindow : MonoBehaviour, IPointerDownHandler {
 
                 iconClone.transform.Find("taskbarIconFrame").gameObject.GetComponent<Image>().sprite = windowClone.GetComponent<windowProp>().windowIcon; //set taskbar icon
 
-                if(talkapp)
+               /* if(talkapp)
                 {
                     //Fl=Friend list;
                     Fl = windowClone.transform.Find("windowContent").gameObject.transform.Find("FriendList").gameObject;
@@ -69,7 +69,7 @@ public class createWindow : MonoBehaviour, IPointerDownHandler {
                     Fl.GetComponent<assignFriends>().windowReference = windowReference;
                     Fl.GetComponent<assignFriends>().iconReference = iconReference;
                 }
-                duplicates++;// one more instance was created
+                duplicates++;// one more instance was created*/
             }
         }
     }
