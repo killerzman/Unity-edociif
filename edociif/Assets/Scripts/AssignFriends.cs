@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class assignFriends : MonoBehaviour {
     public GameObject windowReference, iconReference;
@@ -13,6 +14,8 @@ public class assignFriends : MonoBehaviour {
     public int[] reqType = new int[] { };
     public string[] statusList = new string[] { };
     public bool[] requestGiver=new bool[]{ };
+
+    public string[] chatTextBackup= new string[]{ };
 
     public GameObject prefabContact;
 

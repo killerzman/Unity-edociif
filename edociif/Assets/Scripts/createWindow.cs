@@ -57,9 +57,10 @@ public class createWindow : MonoBehaviour, IPointerDownHandler {
                 windowClone.GetComponent<windowProp>().referenceTaskbarSlot = iconClone; //initiate taskbar slot and keep reference
                 windowClone.GetComponent<windowProp>().isMinimized = false;
                 windowClone.GetComponent<windowProp>().icon = this.gameObject;
-                iconClone.transform.GetComponent<openWindow>().windowObj = windowClone; //set windoe reference inside taskbar slot
+                iconClone.transform.GetComponent<openWindow>().windowObj = windowClone; //set window reference inside taskbar slot
 
                 iconClone.transform.Find("taskbarIconFrame").gameObject.GetComponent<Image>().sprite = windowClone.GetComponent<windowProp>().windowIcon; //set taskbar icon
+                iconClone.SetActive(true);
 
                /* if(talkapp)
                 {

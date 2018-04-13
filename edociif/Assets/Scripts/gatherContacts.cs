@@ -26,9 +26,11 @@ public class gatherContacts : MonoBehaviour {
             //avatarRef = createdObj.transform.Find("iconText").gameObject;
             nameRef = createdObj.transform.Find("userName").gameObject;
             statusRef = createdObj.transform.Find("userStatus").gameObject; 
+            createdObj.GetComponent<openChatWindow>().dataPosition=i;
 
             nameRef.GetComponent<Text>().text=infoSource.GetComponent<assignFriends>().nameList[i];
             statusRef.GetComponent<Text>().text=infoSource.GetComponent<assignFriends>().statusList[i];
+
         }
         
 
@@ -36,8 +38,4 @@ public class gatherContacts : MonoBehaviour {
 
     }
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

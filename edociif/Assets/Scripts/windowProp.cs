@@ -9,6 +9,7 @@ using UnityEngine.EventSystems;
 public class windowProp : MonoBehaviour{
 
     public Color borderColor = new Color(0,85,234);
+    public bool isForLevel2 = false;
     public int windowWidth = 400;
     public int windowHeight = 300;
     public int barHeight = 30;
@@ -68,24 +69,38 @@ public class windowProp : MonoBehaviour{
 
 
         if (!barless){
+
             theBar.GetComponent<RectTransform>().sizeDelta = new Vector2(windowWidth+8, barHeight);                     //bar builder
             theBar.SetActive(true);
             theBar.GetComponent<Image>().sprite = barImage;
             theBar.GetComponent<Image>().color = borderColor;
 
-            theIcon.GetComponent<RectTransform>().localPosition = new Vector2(-windowWidth/2+15,barHeight/2);           
-            theIcon.SetActive(true);
-            theIcon.GetComponent<Image>().sprite = windowIcon;
+            if(!isForLevel2){
+                theIcon.GetComponent<RectTransform>().localPosition = new Vector2(-windowWidth/2+15,barHeight/2);           
+                theIcon.SetActive(true);
+                theIcon.GetComponent<Image>().sprite = windowIcon;
 
-            theName.GetComponent<RectTransform>().localPosition = new Vector2(-windowWidth/2+35,barHeight/2);
-            theName.SetActive(true);
-            theName.GetComponent<Text>().text = windowName;
+                theName.GetComponent<RectTransform>().localPosition = new Vector2(-windowWidth/2+35,barHeight/2);
+                theName.SetActive(true);
+                theName.GetComponent<Text>().text = windowName;
 
-            theButtonMinimize.GetComponent<RectTransform>().localPosition = new Vector2(windowWidth/2 - 35,barHeight/2);
-            theButtonMinimize.SetActive(true);
+                theButtonMinimize.GetComponent<RectTransform>().localPosition = new Vector2(windowWidth/2 - 35,barHeight/2);
+                theButtonMinimize.SetActive(true);
 
-            theButtonClose.GetComponent<RectTransform>().localPosition = new Vector2(windowWidth/2+2, barHeight/2);
-            theButtonClose.SetActive(true);
+                theButtonClose.GetComponent<RectTransform>().localPosition = new Vector2(windowWidth/2+2, barHeight/2);
+                theButtonClose.SetActive(true);
+            }
+            else{
+                theButtonMinimize.GetComponent<RectTransform>().localPosition = new Vector2(-windowWidth/2+30,barHeight/2);
+                theButtonMinimize.SetActive(true);
+
+                theButtonClose.GetComponent<RectTransform>().localPosition = new Vector2(-windowWidth/2+60, barHeight/2);
+                theButtonClose.SetActive(true);
+                
+                theName.GetComponent<RectTransform>().localPosition = new Vector2(-windowWidth/2+65, barHeight/2);
+                theName.SetActive(true);
+                theName.GetComponent<Text>().text = windowName;
+            }
         }
         else{
             theBar.SetActive(false);

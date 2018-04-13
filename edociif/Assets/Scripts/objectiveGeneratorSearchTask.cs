@@ -14,6 +14,41 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
 
     String theImportantInfo;
 
+    int maxNrOfContacts=6;
+    int currentContactSlot;
+
+    
+    public string[] theRequest= new string[6];
+    public string[] theAnswer= new string[6];
+    public string[] theSite= new string[6];
+    public string[] theContent= new string[6];
+    public int[] siteTemplate=new int[6];
+    public bool[] siteRequireInfo = new bool[6];
+    public bool[] siteIsSafe=new bool[6];
+    public string[] siteUsername = new string[6];
+    public string[] sitePassword = new string[6];
+
+    public GameObject CONTACT_DATA;
+
+
+    public void SpawnAdditionalContact(int numberOfSlotRemoved)
+    {
+        for(int i=numberOfSlotRemoved+1;i<maxNrOfContacts;i++)
+            {
+                theRequest[i-1]=theRequest[i];
+                theAnswer[i-1]=theAnswer[i];
+                theSite[i-1]=theSite[i];
+                theContent[i-1]=theContent[i];
+                siteTemplate[i-1]=siteTemplate[i];
+                siteRequireInfo[i-1]=siteRequireInfo[i];
+                siteIsSafe[i-1]=siteIsSafe[i];
+                siteUsername[i-1]=siteUsername[i];
+                sitePassword[i-1]=sitePassword[i];
+                
+            }
+            currentContactSlot=maxNrOfContacts;
+    }//moves everything 
+
     public string[] companyName = new string[] 
     { 
     "Ramsom",
@@ -154,7 +189,60 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
     "I need you to like my page about "
    };
 
+    public string[] siteName = new string[]
+    {
+        "infopedia",
+        "bloatpedia",
+        "thumbler",
+        "thetriviasource",
+        "trivialfacts",
+        "infogalore"
+    };
+
+   public string[] siteDomain = new string[]
+   {
+       ".com",
+       ".net",
+       ".io",
+       ".ru",
+       ".en",
+       ".kr"
+   };
+
+    public string[] userName= new string[]
+    {
+        "Aaron",
+        "Beatrice",
+        "Cory",
+        "Darren",
+        "Elliot",
+        "Foo",
+        "Garry",
+        "Harry",
+        "Irwin",
+        "Jake",
+        "Kenett",
+        "Louise",
+        "Manny",
+        "Norman",
+        "Oleg",
+        "Patty",
+        "Quagmire",
+        "Ron",
+        "Shaggy",
+        "Tomm",
+        "Ulan",
+        "Warren",
+        "Xen",
+        "York",
+        "Zena"
+
+    };
+
     string message = "";
+
+    
+    
 
    public void informationCompanyGetGame()
    {
@@ -163,7 +251,7 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
 
         int seedForRNG = (int)(theImportantInfo.Substring(0, 1).ToCharArray()[0]) + (int)(theImportantInfo.Substring(1, 2).ToCharArray()[0]);
         Debug.Log("the seed is:" + seedForRNG);
-        UnityEngine.Random.seed = seedForRNG;
+        UnityEngine.Random.InitState(seedForRNG);
 
         int nrOfCases = 5;
         bool[] alreadyWritten = new bool[nrOfCases];
@@ -232,7 +320,7 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
 
         int seedForRNG = (int)(theImportantInfo.Substring(0, 1).ToCharArray()[0]) + (int)(theImportantInfo.Substring(1, 2).ToCharArray()[0]);
         Debug.Log("the seed is:" + seedForRNG);
-        UnityEngine.Random.seed = seedForRNG;
+        UnityEngine.Random.InitState(seedForRNG);
 
         int nrOfCases = 5;
         bool[] alreadyWritten = new bool[nrOfCases];
@@ -300,7 +388,7 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
 
         int seedForRNG = (int)(theImportantInfo.Substring(0, 1).ToCharArray()[0]) + (int)(theImportantInfo.Substring(1, 2).ToCharArray()[0]);
         Debug.Log("the seed is:" + seedForRNG);
-        UnityEngine.Random.seed = seedForRNG;
+        UnityEngine.Random.InitState(seedForRNG);
 
         int nrOfCases = 5;
         bool[] alreadyWritten = new bool[nrOfCases];
@@ -370,7 +458,7 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
 
         int seedForRNG = (int)(theImportantInfo.Substring(0, 1).ToCharArray()[0]) + (int)(theImportantInfo.Substring(1, 2).ToCharArray()[0]);
         Debug.Log("the seed is:" + seedForRNG);
-        UnityEngine.Random.seed = seedForRNG;
+        UnityEngine.Random.InitState(seedForRNG);
 
         int nrOfCases = 5;
         bool[] alreadyWritten = new bool[nrOfCases];
@@ -442,9 +530,10 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
 
     
 
-    void Start()
+    void makeContact()
     {
-
+        message="";
+        UnityEngine.Random.InitState(System.Environment.TickCount);
         
 
         //int s=UnityEngine.Random.value;
@@ -455,7 +544,7 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
         socialTitle = GameObject.Find("socialTitle").GetComponent<Text>();
         socialDescription = GameObject.Find("socialDescription").GetComponent<Text>();
 
-        requestNumber = UnityEngine.Random.Range(1,4);
+        requestNumber = 1;//UnityEngine.Random.Range(1,4);
 
         message = greet[UnityEngine.Random.Range(0, greet.Length)];
 
@@ -464,7 +553,7 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
         theGame = gameName[UnityEngine.Random.Range(0, gameName.Length)];
         foundedDate = UnityEngine.Random.Range(1970, 2014);
         disbandedDate = UnityEngine.Random.Range(foundedDate+1, 2018);
-
+        
         switch (requestNumber)
         {
             case 1:                                                                                         //case of company-game, company-software, game-company and software-company 
@@ -513,70 +602,20 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
                     }
                 }
                 break;
-
-            case 2:
-                {
-                    isRequestingLike = true;
-
-                    if (UnityEngine.Random.Range(0, 2) == 1)
-                        isRequestingCompany = true;
-                    else
-                    if (UnityEngine.Random.Range(0, 2) == 1)
-                        isRequestingProductByCompanyGame = true;
-                    else
-                        isRequestingProductByCompanySoft = true;
-
-                    if (isRequestingProductByCompanySoft)
-                    {
-                        message += requestLikeIntro[UnityEngine.Random.Range(0, requestLikeIntro.Length)] + theSoftware + " from " + theCompany + "?";
-                        socialTitle.text = theSoftware;
-                        theImportantInfo = "Like our software: " + theSoftware + " - made by " + theCompany;
-                    }
-                    else if (isRequestingProductByCompanyGame)
-                    {
-                        
-                        message += requestLikeIntro[UnityEngine.Random.Range(0, requestLikeIntro.Length)] + theGame + " from " + theCompany + "?";
-                        socialTitle.text = theGame;
-                        theImportantInfo = "Like our game: " + theGame + " - made by " + theCompany;
-                    }
-
-                    else if (isRequestingCompany)
-                    {
-                        theCompany = softwareName[UnityEngine.Random.Range(0, softwareName.Length)];
-                        if (UnityEngine.Random.Range(0, 2) == 1)
-                        {
-                            message += requestLikeIntro[UnityEngine.Random.Range(0, requestLikeIntro.Length)] + " the company known as " + theCompany + ", popular for their game \"" + theGame + "\"?";
-                            wikiTitle.text = theGame;
-                            theImportantInfo = "Like our company: " + theCompany + ", creators of " + theGame;
-                        }
-                        else
-                        {
-                            message += requestLikeIntro[UnityEngine.Random.Range(0, requestLikeIntro.Length)] + " the company known as " + theCompany + ", popular for developing the software \"" + theSoftware + "\"?"; ;
-                            wikiTitle.text = theSoftware;
-                            theImportantInfo = "Like our company: " + theCompany;
-                        }
-
-                    }
-                }
-                break;
-            case 3:
-                {
-                    isRequestingYear = true;
-                    int currentYear = DateTime.Now.Year;
-                    year = UnityEngine.Random.Range(1960, currentYear);
-                    theSoftware = softwareName[UnityEngine.Random.Range(0, softwareName.Length)];
-                    message += requestInfoIntro[UnityEngine.Random.Range(0, requestInfoIntro.Length)] + "what year was " + theSoftware + " made in?";
-                }
-                break;
-          
+           
         }
 
         Debug.Log("case " + requestNumber + ": " + message);
+ 
 
-
-        
-
-
+        theAnswer[currentContactSlot]=theImportantInfo;
+    }
+    void Start()
+    {
+        for(currentContactSlot=0;currentContactSlot<maxNrOfContacts;currentContactSlot++)
+        {
+            makeContact();Debug.Log("repeated");
+        }
     }
 
 }

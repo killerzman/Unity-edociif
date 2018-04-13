@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 114604624342615652}
   - component: {fileID: 114631716160900826}
   - component: {fileID: 114357005716983810}
+  - component: {fileID: 114777542774987132}
   m_Layer: 5
   m_Name: Friend
   m_TagString: Untagged
@@ -209,6 +210,26 @@ MonoBehaviour:
   resizeable: 0
   talkapp: 0
   duplicates: 0
+--- !u!114 &114777542774987132
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1935658455268160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96cdf7d3ebcfdd4aab2c5807dbdb784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chatWindowPrefab: {fileID: 1656606423327468, guid: f1fc677b427a21e45bd3f9216b5a0db2,
+    type: 2}
+  windowTabReference: {fileID: 0}
+  windowName: {fileID: 0}
+  theText: {fileID: 0}
+  dataPosition: 0
+  taskbarRef: {fileID: 0}
+  prefabTaskbar: {fileID: 1870744257511470, guid: 9aaf643fcd8cd2747810187ed7f52ae0,
+    type: 2}
 --- !u!114 &114794843873612126
 MonoBehaviour:
   m_ObjectHideFlags: 1

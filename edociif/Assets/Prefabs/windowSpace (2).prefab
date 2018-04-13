@@ -227,7 +227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   borderColor: {r: 0.7095512, g: 0.735849, b: 0.17702027, a: 1}
   windowWidth: 200
-  windowHeight: 350
+  windowHeight: 374
   barHeight: 30
   barless: 0
   barImage: {fileID: 21300000, guid: 2a4ecadfc3991ce4d938bad3a132a8b3, type: 3}
@@ -704,7 +704,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -255.9, y: 23}
+  m_AnchoredPosition: {x: -255.9, y: 54}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!224 &224534953597124654
@@ -760,7 +760,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 350}
+  m_SizeDelta: {x: 200, y: 374}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!224 &224656933840272126
 RectTransform:
@@ -778,7 +778,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 4}
-  m_SizeDelta: {x: 208, y: 358}
+  m_SizeDelta: {x: 208, y: 382}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!224 &224687264736562952
 RectTransform:

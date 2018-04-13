@@ -40,7 +40,8 @@ public class chatApp : MonoBehaviour {
 		//listeners for button clicks
 		setNameButton.onClick.AddListener(delegate{setNameFunction(inputNameField,chatLogText);});
 		sendMessageButton.onClick.AddListener(delegate{sendMessageFunction(inputMessageField,chatLogText);});
-        senderName = gameObject.transform.parent.GetComponent<windowProp>().icon.GetComponent<globalName>().Name;
+        //senderName = gameObject.transform.parent.GetComponent<windowProp>().icon.GetComponent<globalName>().Name;
+		
 
     }
 
