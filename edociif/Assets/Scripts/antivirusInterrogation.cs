@@ -182,7 +182,7 @@ public class antivirusInterrogation : MonoBehaviour {
             }
             
 
-                Debug.Log(i + "is" + systType[i]);
+//                Debug.Log(i + "is" + systType[i]);
             }
         for (int i = 0; i < 3; i++)
             if(!lies[i])

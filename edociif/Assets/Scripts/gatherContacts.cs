@@ -13,11 +13,12 @@ public class gatherContacts : MonoBehaviour {
     public GameObject nameRef;
     public GameObject statusRef;
 
-	// Use this for initialization
-	void Start () 
-    {
-        infoSource = gameObject.transform.root.Find("CONTACT_DATA").gameObject;
+    bool refreshList;
 
+	// Use this for initialization
+
+    void gatherContactsProcess()
+    {
         nrOfContacts = infoSource.GetComponent<assignFriends>().nameList.Length;
         for(int i=0;i<nrOfContacts;i++)
         {
@@ -32,10 +33,22 @@ public class gatherContacts : MonoBehaviour {
             statusRef.GetComponent<Text>().text=infoSource.GetComponent<assignFriends>().statusList[i];
 
         }
+    } 
+
+	void Start () 
+    {
+        infoSource = gameObject.transform.root.Find("CONTACT_DATA").gameObject;
+        gatherContactsProcess();
         
-
-        //Debug.Log(nrOfContacts + "  ws");
-
     }
-	
+	void Update()
+    {
+        if(infoSource.GetComponent<assignFriends>().refreshList)
+        {
+            infoSource.GetComponent<assignFriends>().refreshList=false;
+            foreach (Transform child in gameObject.transform) {
+                GameObject.Destroy(child.gameObject);
+ }          gatherContactsProcess();
+        }
+    }
 }

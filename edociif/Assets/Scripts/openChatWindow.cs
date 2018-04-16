@@ -33,15 +33,15 @@ public class openChatWindow : MonoBehaviour {
 		
 		theWindow.GetComponent<windowProp>().referenceTaskbarSlot=theTaskBarIcon;
 		theTaskBarIcon.GetComponent<openWindow>().windowObj=theWindow;
-		windowName=theWindow.transform.Find("windowName").gameObject;
-		windowName.GetComponent<Text>().text="Talk Time - "+gameObject.transform.Find("userName").GetComponent<Text>().text;
+		//windowName=theWindow.transform.Find("windowName").gameObject;
+		theWindow.GetComponent<windowProp>().windowName="Talk Time - "+gameObject.transform.Find("userName").GetComponent<Text>().text;
 		//windowName.transform.parent=windowTabReference.transform;
 		
 		GameObject chatLog= theWindow.transform.Find("windowContent/chatArea/ScrollRect/chatLog").gameObject;
 		//Debug.Log(chatLog.name);
 		chatLog.GetComponent<chatTextUpdater>().dataPosition=dataPosition;
 		//theWindow.GetComponent<windowProp>().windowIcon=gameObject.transform.parent.gameObject.transform.parent.gameObject.transform.parent.gameObject.GetComponent<windowProp>().windowIcon;
-		windowName.GetComponent<Text>().text="Talk Time - "+gameObject.transform.Find("userName").GetComponent<Text>().text;	
+		//windowName.GetComponent<Text>().text="Talk Time - "+gameObject.transform.Find("userName").GetComponent<Text>().text;	
 		
 		windowref=theWindow;
 

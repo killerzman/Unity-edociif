@@ -7,6 +7,7 @@ public class chatTextUpdater : MonoBehaviour {
 
 	public int dataPosition;
 	public GameObject infoSource;
+	public bool allowUpdate=true;
 
 
 	Text theText;
@@ -24,10 +25,9 @@ public class chatTextUpdater : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(allowUpdate)
 		infoSource.GetComponent<assignFriends>().chatTextBackup[dataPosition]=theText.text;
-		//theText=gameObject.GetComponent<Text>();
-		//gameObject.GetComponent<Text>().text=infoSource.GetComponent<assignFriends>().chatTextBackup[dataPosition];
-		Debug.Log("momp");
+		
 
 	}
 }
