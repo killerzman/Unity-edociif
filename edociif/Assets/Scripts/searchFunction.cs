@@ -11,7 +11,101 @@ public class searchFunction : MonoBehaviour {
 	public GameObject searchResultAreaReference;
 
 	public GameObject various_data;
+
+	public GameObject siteSpace;
 	string theSearchText;
+
+	bool displayTheInfo=false;
+
+	string possibleSiteName;
+	string theDomain;
+	string pageName;
+
+	public void openWebsiteTab()
+	{
+		GameObject spawnedChat=null;
+						GameObject siteBackground=null;
+						Debug.Log("the site gets opened");		
+						if(possibleSiteName=="bloatpedia")
+						{
+							spawnedChat=Instantiate(siteSpace.GetComponent<gatherSiteInfo>().sitePrefab1,siteSpace.transform.position,siteSpace.transform.rotation,siteSpace.transform);
+							//spawnedChat.transform.parent=siteSpace.transform;
+							siteBackground=spawnedChat.transform.Find("siteBackground").gameObject;
+						}
+						if(displayTheInfo)
+						{
+							int k=0; bool ok=false;
+
+							while(k<spawnedChat.transform.parent.GetComponent<gatherSiteInfo>().SITE_INFO.GetComponent<objectiveGeneratorSearchTask>().maxNrOfContacts&&!ok)
+							{
+								
+								if(pageName.ToLower()==spawnedChat.transform.parent.GetComponent<gatherSiteInfo>().SITE_INFO.GetComponent<objectiveGeneratorSearchTask>().requestSubject[k].ToLower())
+								ok=true;
+								k++;
+								Debug.Log(pageName.ToLower()+" vs "+spawnedChat.transform.parent.GetComponent<gatherSiteInfo>().SITE_INFO.GetComponent<objectiveGeneratorSearchTask>().requestSubject[k-1].ToLower());
+							}
+							if(ok)
+							{
+								spawnedChat.transform.Find("siteDescription").gameObject.GetComponent<Text>().text=spawnedChat.transform.parent.gameObject.GetComponent<gatherSiteInfo>().SITE_INFO.GetComponent<objectiveGeneratorSearchTask>().theContent[k-1];
+								spawnedChat.transform.Find("siteTitle").gameObject.GetComponent<Text>().text=spawnedChat.transform.parent.GetComponent<gatherSiteInfo>().SITE_INFO.GetComponent<objectiveGeneratorSearchTask>().requestSubject[k-1];
+							}
+						}
+						switch(theDomain)
+						{
+							case ".com": siteBackground.GetComponent<Image>().color=Color.green;break;
+							case ".net": siteBackground.GetComponent<Image>().color=Color.red;break;
+							case ".io": siteBackground.GetComponent<Image>().color=Color.cyan;break;
+							case ".ru": siteBackground.GetComponent<Image>().color=Color.yellow;break;
+							case ".en": siteBackground.GetComponent<Image>().color=Color.gray;break;
+							case ".kr": siteBackground.GetComponent<Image>().color=Color.white;break;
+						}
+	}
+
+	public bool checkWord(string theCheckWord)
+	{
+		bool isTheWordCompany=false, isTheWordGame=false, isTheWordSoftware=false;
+
+				for(int j=0;j<various_data.GetComponent<objectiveGeneratorSearchTask>().companyName.Length;j++)
+				{
+					if(theCheckWord.ToLower()==various_data.GetComponent<objectiveGeneratorSearchTask>().companyName[j].ToLower())
+					{
+						isTheWordCompany=true;
+						Debug.Log("company");
+					}
+					
+				}
+
+				for(int j=0;j<various_data.GetComponent<objectiveGeneratorSearchTask>().gameName.Length;j++)
+				{
+					if(theCheckWord.ToLower()==various_data.GetComponent<objectiveGeneratorSearchTask>().gameName[j].ToLower())					
+					{
+						isTheWordGame=true;
+						Debug.Log("game");
+					}
+				}
+
+				for(int j=0;j<various_data.GetComponent<objectiveGeneratorSearchTask>().softwareName.Length;j++)
+				{
+					if(theCheckWord.ToLower()==various_data.GetComponent<objectiveGeneratorSearchTask>().softwareName[j].ToLower())					
+					{
+						isTheWordSoftware=true;
+						Debug.Log("soft");
+					}
+				}
+
+				if(isTheWordGame||isTheWordCompany||isTheWordSoftware)
+				{	
+					
+					return true;
+				
+					
+				}
+				else
+				{					
+					return false;
+				}
+
+	}
 
 	public void showSiteWithAllDomains()
 	{
@@ -26,10 +120,18 @@ public class searchFunction : MonoBehaviour {
 
 	public void parseText()
 	{
+		displayTheInfo=false;	
+
 		theSearchText=urlBar.transform.Find("Text").gameObject.GetComponent<Text>().text;
 		Debug.Log(theSearchText);
 
 		foreach (Transform child in searchResultAreaReference.transform) 
+		{
+		if(child.gameObject.name!="searchResults")
+        GameObject.Destroy(child.gameObject);
+		}
+
+		foreach (Transform child in siteSpace.transform) 
 		{
         GameObject.Destroy(child.gameObject);
 		}
@@ -49,31 +151,139 @@ public class searchFunction : MonoBehaviour {
 			int i=0;
 			while(i<theConvertedText.Length && theConvertedText[i]!='.')
 			{
-				
+
 				i++;
 			}
 			if(i==theConvertedText.Length)
 			{
-				isTheWebsiteReal=false;
-				Debug.Log("it's a word");
+			isTheWebsiteReal=false;
+			Debug.Log("it's a word");
+
+				if(checkWord(theSearchText))
+					for(int k=0;k<various_data.GetComponent<objectiveGeneratorSearchTask>().siteDomain.Length;k++)
+					{
+						GameObject theSpawnedSuggestion= Instantiate(prefabSearchResult);
+						theSpawnedSuggestion.transform.parent=searchResultAreaReference.transform;
+
+						theSpawnedSuggestion.transform.Find("Text").gameObject.GetComponent<Text>().text=theSearchText+" - "+ various_data.GetComponent<objectiveGeneratorSearchTask>().siteName[k];
+					}
+					
+				
+				else
+				{
+					Debug.Log("the search is neither a site nor a word");
+				} 
+
 			}
-			else
+			else//for complex searches(either direct link to site.domain or site.domain/pageName)
 			{
-				char[] temporaryPossibleSiteName= new char[100];
+				int dotLocation=i;
+				char[] temporaryPossibleSiteName= new char[i];
 				for(int j=0;j<i;j++)
 					temporaryPossibleSiteName[j]=theConvertedText[j];
-
-				string possibleSiteName= new string(temporaryPossibleSiteName);
+				possibleSiteName= new string(temporaryPossibleSiteName);
 
 				Debug.Log(possibleSiteName);
-			}
-			
 
+				while(i<theConvertedText.Length && theConvertedText[i]!='/')
+				{
+
+					i++;
+				}
+				
+				char[] possibleExtension=new char[i-dotLocation];
+				for(int j=dotLocation;j<i;j++)
+				{
+					possibleExtension[j-dotLocation]=theConvertedText[j];
+					//Debug.Log(theConvertedText[j]);
+				}
+				
+
+				theDomain= new string(possibleExtension);
+				Debug.Log(theDomain);
+
+				Debug.Log(theDomain.Length);
+
+				bool realSite=false;
+				bool realDomain=false;
+
+				
+				for(int j=0;j<various_data.GetComponent<objectiveGeneratorSearchTask>().siteName.Length;j++)
+				{
+					if(possibleSiteName.Equals (various_data.GetComponent<objectiveGeneratorSearchTask>().siteName[j]))					
+					{
+						realSite=true;
+						Debug.Log("site");
+					
+					}
+					//Debug.Log("comparing "  + various_data.GetComponent<objectiveGeneratorSearchTask>().siteName[j]);
+				}
+
+				if(realSite)
+					for(int j=0;j<various_data.GetComponent<objectiveGeneratorSearchTask>().siteDomain.Length;j++)
+					{
+						if(theDomain.Equals (various_data.GetComponent<objectiveGeneratorSearchTask>().siteDomain[j]))					
+						{
+							realDomain=true;
+							Debug.Log("domain");
+						}
+					}
+				else
+				{
+					Debug.Log("not a real site");
+				}
+
+				Debug.Log(possibleSiteName.Length);
+
+				if(realDomain)
+				{
+					if(i==theSearchText.Length)
+					{
+						openWebsiteTab();
+							
+					}
+					else
+					{
+						i++;
+						int slashPos=i;
+						
+						char[] possiblePageName= new char[theConvertedText.Length-slashPos];
+						Debug.Log("continue the search for the word from pos "+ (theConvertedText.Length-slashPos-1));
+						
+						while(i<theSearchText.Length)
+						{
+							possiblePageName[i-slashPos]=theConvertedText[i];
+							i++;
+
+						}
+						pageName = new string(possiblePageName);
+
+
+						Debug.Log(pageName);
+
+						if(checkWord(pageName))
+						{
+							Debug.Log("page "+pageName+" gets opened");
+							displayTheInfo=true;
+							openWebsiteTab();
+						}
+						else
+							Debug.Log("404");
+					}
+				}
+				else
+				Debug.Log("bad site request");
+
+
+			}
+		
 		}
 	}
 
 	void Start () {
 		urlBar=gameObject.transform.parent.gameObject;
+		various_data=GameObject.Find("EventSystem");
+		siteSpace=gameObject.transform.parent.gameObject.transform.parent.gameObject.transform.parent.gameObject.transform.Find("siteContent").gameObject;
 	}
 	
 	// Update is called once per frame

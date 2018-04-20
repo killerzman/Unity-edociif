@@ -75,6 +75,7 @@ public class windowProp : MonoBehaviour{
             theBar.GetComponent<Image>().sprite = barImage;
             theBar.GetComponent<Image>().color = borderColor;
 
+            //in case the window is for level 2, change the layout
             if(!isForLevel2){
                 theIcon.GetComponent<RectTransform>().localPosition = new Vector2(-windowWidth/2+15,barHeight/2);           
                 theIcon.SetActive(true);

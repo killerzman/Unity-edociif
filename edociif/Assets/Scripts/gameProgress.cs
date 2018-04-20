@@ -9,9 +9,11 @@ public class gameProgress : MonoBehaviour {
 	//progress is 1 for an empty save state
 	//each time you complete a level, progress gets incremented by one
 	//ex: progress = 4 -> access to level 4
-	public int progress = 1;
+	int progress;
 
-	public GameObject[] buttonsAvailable; 
+	bool[] hasLevelBeenWon;
+
+	public GameObject[] buttonsAvailable;
 
 	public void SetProgress(int nr){
 		progress = nr;
@@ -24,7 +26,6 @@ public class gameProgress : MonoBehaviour {
 	public void IncrementProgressByOne(){
 		progress += 1;
 	}
-
 
 	void Update(){
 		//make levels available on the select screen depending on the progress

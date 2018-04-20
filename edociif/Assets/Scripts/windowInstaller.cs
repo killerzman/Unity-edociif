@@ -11,6 +11,7 @@ public class windowInstaller : MonoBehaviour {
 	int stagenr = 0;
 	bool hasInfoBeenGenerated;
 	bool isVisible;
+	bool evilTermAdded = false;
 	string nameOfInstalledProduct = "default";
 	string nameOfOfferedProduct1 = "def1";
 	string nameOfOfferedProduct2 = "def2";
@@ -19,7 +20,7 @@ public class windowInstaller : MonoBehaviour {
 	Button offer1Next, offer1Back; Toggle offer1Toggle; Text offer1ToggleText; Image offer1Image;
 	Button offer2Next, offer2Back; Toggle offer2Toggle; Text offer2ToggleText; Image offer2Image;
 	Button offer3Next, offer3Back; Toggle offer3Toggle; Text offer3ToggleText; Image offer3Image;
-	Button confirmNext, confirmBack; Text confirmText;
+	Button confirmNext, confirmBack, confirmBlockInstall; Text confirmText; Dropdown confirmDropdown; Toggle confirmTermsToggle; Text terms;
 	GameObject progressBar; Text progressBarText;
 	Button doneNext; Text doneText;
 	public string[] welcText = new string[]{
@@ -82,6 +83,56 @@ public class windowInstaller : MonoBehaviour {
 		"Procedure complete! Install done for ",
 		"We're happy to tell you we're done installing "
 	};
+
+	public string[] softwareName = new string[]
+    {
+		"Vlender",
+		"Baya",
+		"Steme",
+		"Bicord",
+		"Runety",
+		"Naw-dacity",
+		"Brome",
+		"Oxplor",
+		"Walp'Ems",
+		"Talk Time",
+		"Ospap",
+		"Terra Protect",
+		"Bimbows",
+		"Rode Clocks",
+		"Meezual Studio",
+		"Gimb",
+		"Geel-Power Walkthrough"
+    };
+
+	public string[] offerName = new string[]{
+		"Draw.com",
+		"Draw Util SAI",
+		"Core Movie Maker",
+		"Adoub PictureStore",
+		"ScreamStage",
+		"Squad Looker",
+		"DelayWeight",
+		"FastMoment",
+		"xCube Direct",
+		"Ihcamah",
+		"Workplace Sentence",
+		"Workplace StrengthDot",
+		"Flinch",
+		"Igame",
+		"Bad New Experiences",
+		"Strobe"
+	};
+	public string[] evilTerms = new string[]{
+		"By agreeing to those terms, we have your permission of accessing your contact data.",
+		"We may monitor your internet traffic for better results tailored to you.",
+		"We will track your user created files for our machine learning algorithms.",
+		"Location information may be derived from your device's GPS signal, WiFi network or cell towers.",
+		"We may gather information about how you use our product for better understanding of what the consumers want.",
+		"We reserve the right to change, suspend or fully remove any product or content.",
+		"We use the information we collect to send you promotional messages and content and otherwise market to you on and off our services."
+	};
+
 	public Sprite[] offerPics;
 
 	// Use this for initialization
@@ -100,13 +151,17 @@ public class windowInstaller : MonoBehaviour {
 			difficulty = 3;
 		}
 
+		//the window installer is set into multiple stages
+		//initialize every object for every stage of the installer
 		contentStages = GameObject.Find("contentStages");
 
 		stageWelcome = GameObject.Find("stageWelcome");
 		welcomeText = GameObject.Find("welcomeText").GetComponent<Text>();
 		welcomeInstruction = GameObject.Find("welcomeInstruction").GetComponent<Text>();
 		welcomeNext = GameObject.Find("welcomeNext").GetComponent<Button>();
-		setCanvasGroup(stageWelcome, false);
+		//use this function to make a stage interactable and visible or otherwise depending on the bool
+		//false : make it "invisible" ; true : make it interactable
+		setCanvasGroup(stageWelcome, false); 
 
 		stageOffer1 = GameObject.Find("stageOffer1");
 		offer1Next = GameObject.Find("offer1Next").GetComponent<Button>();
@@ -135,7 +190,11 @@ public class windowInstaller : MonoBehaviour {
 		stageConfirmInstall = GameObject.Find("stageConfirmInstall");
 		confirmNext = GameObject.Find("confirmNext").GetComponent<Button>();
 		confirmBack = GameObject.Find("confirmBack").GetComponent<Button>();
+		confirmBlockInstall = GameObject.Find("confirmBlockInstall").GetComponent<Button>();
 		confirmText = GameObject.Find("confirmText").GetComponent<Text>();
+		confirmDropdown = GameObject.Find("confirmDropdown").GetComponent<Dropdown>(); 
+		confirmTermsToggle = GameObject.Find("confirmTermsToggle").GetComponent<Toggle>();
+		terms = GameObject.Find("terms").GetComponent<Text>();
 		setCanvasGroup(stageConfirmInstall, false);
 
 		stageInstalling = GameObject.Find("stageInstalling");
@@ -158,6 +217,10 @@ public class windowInstaller : MonoBehaviour {
 			hasInfoBeenGenerated = true;
 		}
 
+		//remembering what stage the installer is at by using increasing numbers
+		//0 for first stage, 1 for second stage and so on
+		//in case of higher difficulties, the stage may vary
+		//checking isVisible so the canvas group isn't updated every frame, just once
 		if(stagenr == 0){
 			if(isVisible == false){
 				setCanvasGroup(stageWelcome, true);
@@ -183,8 +246,10 @@ public class windowInstaller : MonoBehaviour {
 					isVisible = true;
 					confirmNext.onClick.RemoveAllListeners();
 					confirmBack.onClick.RemoveAllListeners();
+					confirmBlockInstall.onClick.RemoveAllListeners();
 					confirmNext.onClick.AddListener(delegate{pressNext(stageConfirmInstall);});
 					confirmBack.onClick.AddListener(delegate{pressBack(stageConfirmInstall);});
+					confirmBlockInstall.onClick.AddListener(delegate{destroyWindow();});
 				}
 			}
 			if(difficulty >= 2){
@@ -212,8 +277,10 @@ public class windowInstaller : MonoBehaviour {
 					isVisible = true;
 					confirmNext.onClick.RemoveAllListeners();
 					confirmBack.onClick.RemoveAllListeners();
+					confirmBlockInstall.onClick.RemoveAllListeners();
 					confirmNext.onClick.AddListener(delegate{pressNext(stageConfirmInstall);});
 					confirmBack.onClick.AddListener(delegate{pressBack(stageConfirmInstall);});
+					confirmBlockInstall.onClick.AddListener(delegate{destroyWindow();});
 				}
 			}
 			if(difficulty == 3){
@@ -249,8 +316,10 @@ public class windowInstaller : MonoBehaviour {
 					isVisible = true;
 					confirmNext.onClick.RemoveAllListeners();
 					confirmBack.onClick.RemoveAllListeners();
+					confirmBlockInstall.onClick.RemoveAllListeners();
 					confirmNext.onClick.AddListener(delegate{pressNext(stageConfirmInstall);});
 					confirmBack.onClick.AddListener(delegate{pressBack(stageConfirmInstall);});
+					confirmBlockInstall.onClick.AddListener(delegate{destroyWindow();});
 				}
 			}
 		}
@@ -281,6 +350,14 @@ public class windowInstaller : MonoBehaviour {
 				}
 			}
 		}
+
+		//if terms are agreed to, make install button interactable
+		if(confirmTermsToggle.isOn){
+			confirmNext.interactable = true;
+		}
+		else{
+			confirmNext.interactable = false;
+		}
 	}
 
 	void setCanvasGroup(GameObject obj, bool enable){
@@ -297,6 +374,23 @@ public class windowInstaller : MonoBehaviour {
 	}
 
 	void generateRandomInfo(){
+
+		//generating info at script runtime
+		//such as name of the installed product, offered products, greeting messages etc.
+
+		nameOfInstalledProduct = softwareName[Random.Range(0, softwareName.Length)];
+
+		List<string> offerProductList = new List<string>(offerName);
+		int indexForOfferProductList = Random.Range(0,offerProductList.Count);
+		nameOfOfferedProduct1 = offerProductList[indexForOfferProductList];
+		offerProductList.RemoveAt(indexForOfferProductList);
+		indexForOfferProductList = Random.Range(0,offerProductList.Count);
+		nameOfOfferedProduct2 = offerProductList[indexForOfferProductList];
+		offerProductList.RemoveAt(indexForOfferProductList);
+		indexForOfferProductList = Random.Range(0,offerProductList.Count);
+		nameOfOfferedProduct3 = offerProductList[indexForOfferProductList];
+		offerProductList.RemoveAt(indexForOfferProductList);
+
 		welcomeText.text = welcText[Random.Range(0,welcText.Length)] + nameOfInstalledProduct;
 		welcomeInstruction.text = welcInstr[Random.Range(0,welcInstr.Length)];
 
@@ -325,33 +419,57 @@ public class windowInstaller : MonoBehaviour {
 		confirmText.text = "";
 		confirmText.text += confirmBeginTxt[Random.Range(0,confirmBeginTxt.Length)] + nameOfInstalledProduct;
 
-		doneText.text = "";
-		doneText.text += doneTxt[Random.Range(0,doneTxt.Length)] + nameOfInstalledProduct;
+		if(Random.Range(0,2) % 2 == 1){
+			terms.text = terms.text.Insert(terms.text.IndexOf('\n') + 1, '\n' + evilTerms[Random.Range(0,evilTerms.Length)] + '\n');
+			evilTermAdded = true;
+		}
+
+		doneText.text = doneTxt[Random.Range(0,doneTxt.Length)] + nameOfInstalledProduct;
 		doneText.text += "\nPress finish to close the installer.";
 		
 		progressBarText.text = progBarTxt[Random.Range(0,progBarTxt.Length)];
 	}
 
 	void pressNext(GameObject obj){
+		//make the current object invisible and go to the next stage
 		setCanvasGroup(obj, false);
 		isVisible = false;
 		stagenr++;
 		if(obj.name == "stageDoneInstalling"){
-			Destroy(contentStages.transform.parent.transform.parent.GetComponent<windowProp>().referenceTaskbarSlot);
-			Destroy(contentStages.transform.parent.transform.parent.gameObject);
+			//destroy the installer window at finish
+			destroyWindow();
+		}
+		else if(obj.name == "stageConfirmInstall"){
+			//in case an offered product is installed or the install dropdown value points to an admin file location
+			//or an evil term has been accepted to
+			//increase the mistake counter
+			if((difficulty == 1 && offer1Toggle.isOn) || 
+			   (difficulty == 2 && (offer1Toggle.isOn || offer2Toggle.isOn)) ||
+			   (difficulty == 3 && (offer1Toggle.isOn || offer2Toggle.isOn || offer3Toggle.isOn)) ||
+			   (confirmDropdown.value == 0) ||
+			   (evilTermAdded == true)
+			){
+				GameObject.Find("mistakePanel").GetComponent<mistakeHandler>().mistakeCounterToModify++;
+			}
+			
 		}
 	}
 
 	void pressBack(GameObject obj){
+		//make the current object invisible and go to the previous stage
 		setCanvasGroup(obj, false);
 		isVisible = false;
 		stagenr--;
-		if(obj.name == "stageConfirmInstalling"){
-			
-		}
+	}
+
+	void destroyWindow(){
+		//destroy the installer window
+		Destroy(contentStages.transform.parent.transform.parent.GetComponent<windowProp>().referenceTaskbarSlot);
+		Destroy(contentStages.transform.parent.transform.parent.gameObject);
 	}
 	
 	IEnumerator progressBarTransition(){
+		//smoothly fill the progress bar by using a slider and calculations over time
 		float progressTime = 3.0f;
 		float progressBarValue = progressBar.GetComponent<Slider>().value = 0;
 		while (progressBarValue < 1){

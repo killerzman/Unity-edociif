@@ -18,6 +18,8 @@ public class assignFriends : MonoBehaviour {
 
     public string[] chatTextBackup= new string[]{ };
 
+    public bool[] safeToDeny=new bool[]{};
+
     public GameObject prefabContact;
 
     public bool refreshList=true;

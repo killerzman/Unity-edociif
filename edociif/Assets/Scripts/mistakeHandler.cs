@@ -40,13 +40,16 @@ public class mistakeHandler : MonoBehaviour {
 	
 
 	void Update () {
+		//if the aux counter is modified, modify the real counter with the aux value
 		if(mistakeCounterToModify > mistakeCounter){
 			mistakeCounter = mistakeCounterToModify;
+			//play failure video if counter is bigger than number of allowed mistakes
 			if(mistakeCounterToModify < mistakesUntilFail){
 				StartCoroutine(playVid());
 				mistakeAudio.Play();
 			}
 		}
+		//reset values to 0 to avoid update issues and show failure panel
 		if(mistakeCounter >= mistakesUntilFail){
 			mistakeCounter = 0;
 			mistakeCounterToModify = 0;
@@ -58,6 +61,7 @@ public class mistakeHandler : MonoBehaviour {
 	}
 
 	public IEnumerator changeToScene(string scene){
+		//wait the number of seconds for the audio to finish until scene changing
 		gameOverAudio.Play();
 		yield return new WaitForSeconds(gameOverAudio.clip.length);
 		SceneManager.LoadScene(scene);
