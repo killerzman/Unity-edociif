@@ -8,7 +8,6 @@
 ._*
 .Spotlight-V100
 .Trashes
-Icon?
 ehthumbs.db
 [Tt]humbs.db
 [Dd]esktop.ini
@@ -24,10 +23,3 @@ ehthumbs.db
 *.user
 *.unityproj
 *.booproj
-
-# Unity generated
-# ===============
-[Oo]bj/
-[Bb]uild
-sysinfo.txt
-*.stackdump
