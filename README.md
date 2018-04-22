@@ -18,6 +18,8 @@ Each task requires careful execution. Otherwise things might not go as planned.
 
 ## Download / Links
 
-Nothing playable yet available. This project is still a work in progress.
+Downloads available [here](https://bitbucket.org/vrempremiulintai/edociif/src/master/edociif/Builds/).
 
 Source code is available to play around with.
+
+Built with Unity 2018 1.0.b10.
