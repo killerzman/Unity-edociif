@@ -8,7 +8,7 @@ public class createWindow : MonoBehaviour, IPointerDownHandler {
 
 	public GameObject windowPrefab, iconPrefab;
     public GameObject windowReference, iconReference;
-    public bool isUnique, resizeable = true,talkapp=false;
+    public bool isUnique , resizeable = true;
     GameObject textReference;
     bool initialpress = false;
     public int duplicates=0;
@@ -62,15 +62,7 @@ public class createWindow : MonoBehaviour, IPointerDownHandler {
                 iconClone.transform.Find("taskbarIconFrame").gameObject.GetComponent<Image>().sprite = windowClone.GetComponent<windowProp>().windowIcon; //set taskbar icon
                 iconClone.SetActive(true);
 
-               /* if(talkapp)
-                {
-                    //Fl=Friend list;
-                    Fl = windowClone.transform.Find("windowContent").gameObject.transform.Find("FriendList").gameObject;
-                    //assign the windowReference to the Friend list so he can assing them to the friends
-                    Fl.GetComponent<assignFriends>().windowReference = windowReference;
-                    Fl.GetComponent<assignFriends>().iconReference = iconReference;
-                }
-                duplicates++;// one more instance was created*/
+                duplicates++;
             }
         }
     }

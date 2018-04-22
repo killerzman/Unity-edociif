@@ -15,17 +15,20 @@ public class mistakeHandler : MonoBehaviour {
 	public RawImage mistakeVideoLocation;
 	VideoPlayer mistakeVideoPlayer;
 	GameObject gameOverPanel;
-	GameObject mistakePanel;
+	//GameObject mistakePanel;
 	AudioSource gameOverAudio;
 	AudioSource mistakeAudio;
 	Color panelColor;
 	Text gameOverText;
 
+	GameObject mistakeTextRef;
+
 	void Start () {
+		mistakeTextRef=gameObject.transform.root.Find("mistakeCounter/mistakeNumber").gameObject;
 		gameOverAudio = GameObject.Find("gameOverPanel/audioSource").GetComponent<AudioSource>();
 		gameOverPanel = GameObject.Find("gameOverPanel");
 		gameOverText = GameObject.Find("gameOverPanel/Text").GetComponent<Text>();
-		mistakePanel = GameObject.Find("mistakePanel");
+		//mistakePanel = GameObject.Find("mistakePanel");
 		mistakeAudio = GameObject.Find("mistakePanel/audioSource").GetComponent<AudioSource>();
 		gameOverAudio.clip = gameOverClip;
 		gameOverText.color = Color.red;
@@ -56,8 +59,11 @@ public class mistakeHandler : MonoBehaviour {
 			gameOverPanel.GetComponent<CanvasGroup>().alpha = 1;
 			gameOverPanel.GetComponent<CanvasGroup>().interactable = true;
 			gameOverPanel.GetComponent<CanvasGroup>().blocksRaycasts = true;
-			StartCoroutine(changeToScene("Menu"));
+			StartCoroutine(changeToScene("SelectDay"));
+
+			
 		}
+		mistakeTextRef.GetComponent<Text>().text="x"+ (mistakesUntilFail-mistakeCounterToModify);
 	}
 
 	public IEnumerator changeToScene(string scene){

@@ -19,6 +19,8 @@ public class assignFriends : MonoBehaviour {
     public string[] chatTextBackup= new string[]{ };
 
     public bool[] safeToDeny=new bool[]{};
+    public bool[] isDead=new bool[]{};
+    public GameObject[] chatReference=new GameObject[]{};
 
     public GameObject prefabContact;
 

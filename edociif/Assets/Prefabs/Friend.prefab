@@ -208,7 +208,6 @@ MonoBehaviour:
   iconReference: {fileID: 0}
   isUnique: 1
   resizeable: 0
-  talkapp: 0
   duplicates: 0
 --- !u!114 &114777542774987132
 MonoBehaviour:
@@ -226,7 +225,9 @@ MonoBehaviour:
   windowTabReference: {fileID: 0}
   windowName: {fileID: 0}
   theText: {fileID: 0}
+  windowref: {fileID: 0}
   dataPosition: 0
+  chatTaskbarIcon: {fileID: 21300000, guid: 578ceeca389e5cb41b5a68bf160fe5ed, type: 3}
   taskbarRef: {fileID: 0}
   prefabTaskbar: {fileID: 1870744257511470, guid: 9aaf643fcd8cd2747810187ed7f52ae0,
     type: 2}

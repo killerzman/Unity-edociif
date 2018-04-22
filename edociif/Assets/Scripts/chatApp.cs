@@ -11,6 +11,9 @@ public class chatApp : MonoBehaviour {
 
 	public string senderName;
 
+	public GameObject dataBase,mistakePanel,correctProgress;
+	
+
 	// Use this for initialization
 	void Start(){
 		inputName = gameObject.transform.Find("inputName").gameObject;
@@ -19,6 +22,12 @@ public class chatApp : MonoBehaviour {
 		scrollRect = gameObject.transform.Find("chatArea/ScrollRect").gameObject;
 		inputMessage = gameObject.transform.Find("inputMessage").gameObject;
 		sendMessage = gameObject.transform.Find("sendMessage").gameObject;
+
+
+		dataBase=GameObject.Find("EventSystem");
+		mistakePanel=gameObject.transform.root.Find("mistakePanel").gameObject;
+		correctProgress=gameObject.transform.root.Find("objectiveCounter").gameObject;
+		
 	}
 	
 	// Update is called once per frame
@@ -63,14 +72,42 @@ public class chatApp : MonoBehaviour {
 	}
 	void sendMessageFunction(InputField inputMessageField, Text chatLogText){
 		if(inputMessageField.text != "") {
+
+			 int number = gameObject.transform.Find("chatArea/ScrollRect/chatLog").gameObject.GetComponent<chatTextUpdater>().dataPosition;
+			 if(inputMessageField.text.ToLower().Contains(  dataBase.GetComponent<objectiveGeneratorSearchTask>().theAnswer[number].ToLower()))
+			 {
+				Debug.Log("correct answer");
+				//mistakePanel.GetComponent<mistakeHandler>().mistakeCounter++;
+				correctProgress.GetComponent<progressHandler>().incrementNumber();
+				gameObject.transform.Find("RequestKiller").gameObject.GetComponent<RequestKiller>().changeList(false);
+			 }
+			 else
+			 {
+				mistakePanel.GetComponent<mistakeHandler>().mistakeCounterToModify++;
+				Debug.Log("wrong answer");
+				//mistakePanel.transform.root.Find("mistakeCounter/mistakeNumber").gameObject.GetComponent<Text>().text="x"+(mistakePanel.GetComponent<mistakeHandler>().mistakesUntilFail-mistakePanel.GetComponent<mistakeHandler>().mistakeCounterToModify);
+				gameObject.transform.Find("RequestKiller").gameObject.GetComponent<RequestKiller>().changeList(true);
+			 }
+
          	chatLogText.text += "\n" + senderName + ": " + inputMessageField.text;
-         	inputMessageField.text = "";
+         	
+			 Debug.Log("comparing "+ inputMessageField.text.ToLower()+" and "+dataBase.GetComponent<objectiveGeneratorSearchTask>().theAnswer[number].ToLower());
+			 
+			 
+			 inputMessageField.text = "";
 			//set focus to previous field
 			inputMessageField.Select();
  			inputMessageField.ActivateInputField();
 			//update position of scroll area to show latest text 
 			Canvas.ForceUpdateCanvases();
 			scrollRect.GetComponent<ScrollRect>().verticalNormalizedPosition = 0f;
+
+			
+
+
+
+			gameObject.transform.Find("inputMessage").gameObject.SetActive(false);
+			
      	}
 	}
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
+//[System.Serializable]
 public class antivirusInterrogation : MonoBehaviour {
 
     
@@ -31,8 +31,10 @@ public class antivirusInterrogation : MonoBehaviour {
     int keepRightReference;
 
     // Use this for initialization
-    void Start () 
+    public void generateVirus () 
     {
+        virusType=Random.Range(0,3);
+
         lies = new bool[3];
 
         randomNumber = Random.Range(0,5);
@@ -205,11 +207,11 @@ public class antivirusInterrogation : MonoBehaviour {
             }
     }
 	
-    
-
+    void Start()
+    {
+        generateVirus();
+    }
 	// Update is called once per frame
-	void Update () {
-			
-	}
+	
 }
 

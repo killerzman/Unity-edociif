@@ -31,6 +31,8 @@ public class gatherContacts : MonoBehaviour {
 
             nameRef.GetComponent<Text>().text=infoSource.GetComponent<assignFriends>().nameList[i];
             statusRef.GetComponent<Text>().text=infoSource.GetComponent<assignFriends>().statusList[i];
+            if(infoSource.GetComponent<assignFriends>().chatReference[i]!=null)
+            createdObj.GetComponent<openChatWindow>().windowref=infoSource.GetComponent<assignFriends>().chatReference[i];
 
         }
     } 

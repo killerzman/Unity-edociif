@@ -37,7 +37,7 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
 
     public GameObject CONTACT_DATA;
 
-    public int randomIncrement=1;
+    //public int randomIncrement=1;
 
 
     public void SpawnAdditionalContact(int numberOfSlotRemoved)
@@ -55,15 +55,15 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
                 sitePassword[i-1]=sitePassword[i];
                 requestSubject[i-1]=requestSubject[i];
                 userName[i-1]=userName[i];
+                theDomain[i-1]=theDomain[i];
                 
                 CONTACT_DATA.GetComponent<assignFriends>().chatTextBackup[i-1]=CONTACT_DATA.GetComponent<assignFriends>().chatTextBackup[i];
                 CONTACT_DATA.GetComponent<assignFriends>().nameList[i-1]=CONTACT_DATA.GetComponent<assignFriends>().nameList[i];
                 CONTACT_DATA.GetComponent<assignFriends>().reqType[i-1]=CONTACT_DATA.GetComponent<assignFriends>().reqType[i];
                 CONTACT_DATA.GetComponent<assignFriends>().statusList[i-1]=CONTACT_DATA.GetComponent<assignFriends>().statusList[i];
                 CONTACT_DATA.GetComponent<assignFriends>().requestGiver[i-1]=CONTACT_DATA.GetComponent<assignFriends>().requestGiver[i];
-                
-                
-                
+                CONTACT_DATA.GetComponent<assignFriends>().chatReference[i-1]=CONTACT_DATA.GetComponent<assignFriends>().chatReference[i];
+                //CONTACT_DATA.GetComponent<assignFriends>().isDead[i-1]=CONTACT_DATA.GetComponent<assignFriends>().isDead[i];
                 
             }
             Debug.Log("progress1");
@@ -72,11 +72,7 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
             currentContactSlot=maxNrOfContacts-1;
             makeContact();
             CONTACT_DATA.GetComponent<assignFriends>().refreshList=true;
-    }//moves everything 
-
-
-#pragma #region Name
-    
+    }//moves everything     
 
     public string[] companyName = new string[] 
     { 
@@ -117,7 +113,7 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
     "Ospap",
     "Terra Protect",
     "Bimbows",
-    "Rode Clocks",
+    "Rode Clocks", //code blocks
     "Meezual Studio",
     "Gimb",
     "Geel-Power Walkthrough",
@@ -127,15 +123,15 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
     "Adoub PictureStore",
     "ScreamStage",//opera
     "Squad Looker",
-    "DelayWeight",
+    "DelayWeight", //instagram
     "FastMoment",
     "xCube Direct",
-    "Ihcamah",
+    "Ihcamah", //hamachi reversed
     "Workplace Sentence",
     "Workplace StrengthDot",
     "Flinch",
     "Igame",
-    "Bad New Experiences",
+    "Bad New Experiences", //gog
     "Strobe"
     };
 
@@ -144,7 +140,7 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
     "Ritecraft",
     "Brust",
     "Konter Srayk",
-    "Cream 4très",
+    "Cream 4tres",
     "Mortal2",
     "Walrus Principle",
     "Surgeon Emulator",
@@ -200,7 +196,7 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
     "hi..... ",
     "hey buddy. ",
     "can you help a buddy out? ",
-    "lend a hand over here?",
+    "lend a hand over here? ",
     "help. "
     };
 
@@ -289,18 +285,15 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
 
     string message = "";
 
-    
-#pragma endregion
-
    public void informationCompanyGetGame()
    {
         bool wasTheRequiredInfoUsed=false;
         
         wikiDescription = "";
 
-        int seedForRNG = (int)(theImportantInfo.Substring(0, 1).ToCharArray()[0]) + (int)(theImportantInfo.Substring(1, 2).ToCharArray()[0]);
+        /*int seedForRNG = System.Environment.TickCount+randomIncrement;
         Debug.Log("the seed is:" + seedForRNG);
-        UnityEngine.Random.InitState(seedForRNG);
+        UnityEngine.Random.InitState(seedForRNG);*/
 
         int nrOfCases = 5;
         bool[] alreadyWritten = new bool[nrOfCases];
@@ -350,7 +343,7 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
                         theFakeContent[currentContactSlot]=wikiDescription;
                         wikiDescription +="The definitory product of "+theCompany +" is the videogame "+ theImportantInfo+". ";
                         wasTheRequiredInfoUsed = true;
-                        theFakeContent[currentContactSlot] += "The software \"" + theGame + "\" is the definitory product developed and released by " + theFakeImportantInfo + ". ";
+                        theFakeContent[currentContactSlot] +="The definitory product of " + theCompany + " is the videogame " + theFakeImportantInfo + ". ";
                         }
                     }
             }
@@ -361,7 +354,7 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
             theFakeContent[currentContactSlot]=wikiDescription;
             wikiDescription += "The definitory product of " + theCompany + " is the videogame " + theImportantInfo + ". ";
             wasTheRequiredInfoUsed = true;
-            theFakeContent[currentContactSlot] += "The software \"" + theGame + "\" is the definitory product developed and released by " + theFakeImportantInfo + ". ";
+            theFakeContent[currentContactSlot] +="The definitory product of " + theCompany + " is the videogame " + theFakeImportantInfo + ". ";
         }
     }
 
@@ -371,9 +364,9 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
         bool wasTheRequiredInfoUsed = false;
         wikiDescription = "";
 
-        int seedForRNG = (int)(theImportantInfo.Substring(0, 1).ToCharArray()[0]) + (int)(theImportantInfo.Substring(1, 2).ToCharArray()[0]);
+        /*int seedForRNG = System.Environment.TickCount+randomIncrement;
         //Debug.Log("the seed is:" + seedForRNG);
-        UnityEngine.Random.InitState(seedForRNG);
+        UnityEngine.Random.InitState(seedForRNG);*/
 
         int nrOfCases = 5;
         bool[] alreadyWritten = new bool[nrOfCases];
@@ -400,7 +393,7 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
                         else
                             wikiDescription += "After " + (disbandedDate - foundedDate) + " years from being founded, the company was disbanded for undocumented reasons in "+disbandedDate+". "; break;
                     case 3: wikiDescription += "There are no controversies that involve the company. "; break;
-                    case 4: wikiDescription += "The prefered game genre developed by this company is ";
+                    case 4: wikiDescription += "The prefered software type developed by this company is ";
                         int gameGenraRNG = UnityEngine.Random.Range(0, 6);
                         switch(gameGenraRNG)
                         {
@@ -423,7 +416,7 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
                         theFakeContent[currentContactSlot]=wikiDescription;
                         wikiDescription += "The definitory product of " + theCompany + " is the software " + theImportantInfo + ". ";
                         wasTheRequiredInfoUsed = true;
-                        theFakeContent[currentContactSlot] += "The software \"" + theGame + "\" is the definitory product developed and released by " + theFakeImportantInfo + ". ";
+                        theFakeContent[currentContactSlot] += "The definitory product of " + theCompany + " is the software " + theFakeImportantInfo + ". ";
                     }
                 }
             }
@@ -434,7 +427,7 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
             theFakeContent[currentContactSlot]=wikiDescription;
             wikiDescription += "The definitory product of " + theCompany + " is the software " + theImportantInfo + ". ";
             wasTheRequiredInfoUsed = true;
-            theFakeContent[currentContactSlot] += "The software \"" + theGame + "\" is the definitory product developed and released by " + theFakeImportantInfo + ". ";
+            theFakeContent[currentContactSlot] += "The definitory product of " + theCompany + " is the software " + theFakeImportantInfo + ". ";
         }
     }
 
@@ -443,9 +436,9 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
         bool wasTheRequiredInfoUsed = false;
         wikiDescription = "";
 
-        int seedForRNG = (int)(theImportantInfo.Substring(0, 1).ToCharArray()[0]) + (int)(theImportantInfo.Substring(1, 2).ToCharArray()[0]);
+        /*int seedForRNG = System.Environment.TickCount+randomIncrement;
         Debug.Log("the seed is:" + seedForRNG);
-        UnityEngine.Random.InitState(seedForRNG);
+        UnityEngine.Random.InitState(seedForRNG);*/
 
         int nrOfCases = 5;
         bool[] alreadyWritten = new bool[nrOfCases];
@@ -471,7 +464,7 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
                             wikiDescription += "After most of the community left, the game became officially unsupported " + disbandedDate + ", after " + (disbandedDate - foundedDate) + " years from starting development. ";
                         else
                             wikiDescription += "After " + (disbandedDate - foundedDate) + " years from starting development, the game officially lost support for undocumented reasons in " + disbandedDate + ". "; break;
-                    case 3: wikiDescription += "There are no controversies that involving the game."; break;
+                    case 3: wikiDescription += "There are no controversies that involve the game."; break;
                     case 4:
                         wikiDescription += "The game genre is that of ";
                         int gameGenraRNG = UnityEngine.Random.Range(0, 9);
@@ -497,7 +490,7 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
                         theFakeContent[currentContactSlot]=wikiDescription;
                         wikiDescription += "The game \"" +theGame+ "\" is the definitory game developed and released by " + theImportantInfo + ". ";
                         wasTheRequiredInfoUsed = true;
-                        theFakeContent[currentContactSlot] += "The software \"" + theGame + "\" is the definitory product developed and released by " + theFakeImportantInfo + ". ";
+                        theFakeContent[currentContactSlot] += wikiDescription += "The game \"" +theGame+ "\" is the definitory game developed and released by " + theFakeImportantInfo + ". ";
                     }
                 }
             }
@@ -508,7 +501,7 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
             theFakeContent[currentContactSlot]=wikiDescription;
             wikiDescription += "The game \"" + theGame + "\" is the definitory game developed and released by " + theImportantInfo + ". ";
             wasTheRequiredInfoUsed = true;
-            theFakeContent[currentContactSlot] += "The software \"" + theGame + "\" is the definitory product developed and released by " + theFakeImportantInfo + ". ";
+            theFakeContent[currentContactSlot] += "The game \"" + theGame + "\" is the definitory game developed and released by " + theFakeImportantInfo + ". ";
             
         }
     }
@@ -518,9 +511,11 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
         bool wasTheRequiredInfoUsed = false;
         wikiDescription = "";
 
-        int seedForRNG = (int)(theImportantInfo.Substring(0, 1).ToCharArray()[0]) + (int)(theImportantInfo.Substring(1, 2).ToCharArray()[0]);
+        Debug.Log(theImportantInfo+" goo");
+
+        /*int seedForRNG =System.Environment.TickCount+randomIncrement; //(int)(theImportantInfo.Substring(0, 1).ToCharArray()[0]) + (int)(theImportantInfo.Substring(1, 2).ToCharArray()[0]);
         Debug.Log("the seed is:" + seedForRNG);
-        UnityEngine.Random.InitState(seedForRNG);
+        UnityEngine.Random.InitState(seedForRNG);*/
 
         int nrOfCases = 5;
         bool[] alreadyWritten = new bool[nrOfCases];
@@ -535,7 +530,7 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
                 alreadyWritten[infoNumber] = true;
                 switch (infoNumber)
                 {
-                    case 0: wikiDescription += theGame + " was released in " + foundedDate + ". "; break;
+                    case 0: wikiDescription += theSoftware + " was released in " + foundedDate + ". "; break;
                     case 1:
                         if (UnityEngine.Random.Range(0, 2) == 1)
                             wikiDescription += "The software has a good reputation for being useful for both professionals and beginners. ";
@@ -547,20 +542,16 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
                         else
                             wikiDescription += "After " + (disbandedDate - foundedDate) + " years from release, the software officially lost support for undocumented reasons in " + disbandedDate + ". "; break;
                     case 3: wikiDescription += "There are no controversies that involve the software."; break;
-                    case 4:
-                        wikiDescription += "The game genre is that of ";
+                    case 4: wikiDescription += "The prefered software type developed by this company is ";
                         int gameGenraRNG = UnityEngine.Random.Range(0, 9);
                         switch (gameGenraRNG)
                         {
-                            case 0: wikiDescription += "first person shooter. "; break;
-                            case 1: wikiDescription += "RPG. "; break;
-                            case 2: wikiDescription += "MMORPG. "; break;
-                            case 3: wikiDescription += "puzzle. "; break;
-                            case 4: wikiDescription += "simulator. "; break;
-                            case 5: wikiDescription += "sandbox. "; break;
-                            case 6: wikiDescription += "freeroam. "; break;
-                            case 7: wikiDescription += "survival. "; break;
-                            case 8: wikiDescription += "arcade. "; break;
+                            case 0: wikiDescription += "image editors. ";break;
+                            case 1: wikiDescription += "3d model editors. "; break;
+                            case 2: wikiDescription += "IDEs. "; break;
+                            case 3: wikiDescription += "chat apps. "; break;
+                            case 4: wikiDescription += "web browsers. "; break;
+                            case 5: wikiDescription += "antiviruses. "; break;
                         }
                         break;
 
@@ -570,9 +561,9 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
                     if (UnityEngine.Random.Range(0, 4) == 3)
                     {
                         theFakeContent[currentContactSlot]=wikiDescription;
-                        wikiDescription += "The software \"" + theGame + "\" is the definitory product developed and released by " + theImportantInfo + ". ";
+                        wikiDescription += "The software \"" + theSoftware + "\" is the definitory product developed and released by " + theImportantInfo + ". ";
                         wasTheRequiredInfoUsed = true;
-                        theFakeContent[currentContactSlot] += "The software \"" + theGame + "\" is the definitory product developed and released by " + theFakeImportantInfo + ". ";
+                        theFakeContent[currentContactSlot] += "The software \"" + theSoftware + "\" is the definitory product developed and released by " + theFakeImportantInfo + ". ";
                     }
                 }
             }
@@ -581,28 +572,30 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
         if (!wasTheRequiredInfoUsed)
         {
             theFakeContent[currentContactSlot]=wikiDescription;
-            wikiDescription += "The software \"" + theGame + "\" is the definitory product developed and released by " + theImportantInfo + ". ";
+            wikiDescription += "The software \"" + theSoftware + "\" is the definitory product developed and released by " + theImportantInfo + ". ";
             wasTheRequiredInfoUsed = true;
-            theFakeContent[currentContactSlot] += "The software \"" + theGame + "\" is the definitory product developed and released by " + theFakeImportantInfo + ". ";
+            theFakeContent[currentContactSlot] += "The software \"" + theSoftware + "\" is the definitory product developed and released by " + theFakeImportantInfo + ". ";
         }
     }
 
 
-    int requestNumber;
+    //int requestNumber;
 
-    string wikiTitle, wikiDescription;
+    //string wikiTitle;
+    string wikiDescription;
 
-    Text socialTitle, socialDescription;
+    //Text socialTitle, socialDescription;
 
     
 
     void makeContact()
     {
+
         theSite[currentContactSlot]="";
         message="";
         theFakeContent[currentContactSlot]="";
-        UnityEngine.Random.InitState(System.Environment.TickCount+randomIncrement);
-        randomIncrement++;
+        //UnityEngine.Random.InitState(System.Environment.TickCount*randomIncrement);
+        //randomIncrement++;
 
         //int s=UnityEngine.Random.value;
         
@@ -612,44 +605,74 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
         //socialTitle = GameObject.Find("socialTitle").GetComponent<Text>();
         //socialDescription = GameObject.Find("socialDescription").GetComponent<Text>();
 
-        requestNumber = 1;//UnityEngine.Random.Range(1,4);
+        //requestNumber = 1; UnityEngine.Random.Range(1,4);
 
         message = greet[UnityEngine.Random.Range(0, greet.Length)];
 
         bool uniqueSoftware=false;
         do
-        {   uniqueSoftware=true;
+        {   
+            uniqueSoftware=true;  
             theSoftware=softwareName[UnityEngine.Random.Range(0, softwareName.Length)];
             for(int i=0;i<maxNrOfContacts;i++)
-                if(i!=currentContactSlot)
+                {
+                    if(i!=currentContactSlot)
+                    {
+                     
                     if(theSoftware==requestSubject[i])
                     uniqueSoftware=false;
+                    }
+                    
+                }
+                if(currentContactSlot>0)
+                        if(theSoftware==requestSubject[currentContactSlot-1])
+                        uniqueSoftware=false;
         }while(!uniqueSoftware);
 
         
 
         bool uniqueGame=false;
         do
-        {   uniqueGame=true;
+        {   
+            uniqueGame=true;  
             theGame=gameName[UnityEngine.Random.Range(0, gameName.Length)];
             for(int i=0;i<maxNrOfContacts;i++)
-                if(i!=currentContactSlot)
+                {
+                    if(i!=currentContactSlot)
+                    {
+                     
                     if(theGame==requestSubject[i])
                     uniqueGame=false;
+                    }
+                    
+                }
+                if(currentContactSlot>0)
+                        if(theGame==requestSubject[currentContactSlot-1])
+                        uniqueGame=false;
         }while(!uniqueGame);
 
         bool uniqueCompany=false;
         do
-        {   uniqueCompany=true;
+        {   
+            uniqueCompany=true;  
             theCompany=companyName[UnityEngine.Random.Range(0, companyName.Length)];
             for(int i=0;i<maxNrOfContacts;i++)
-                if(i!=currentContactSlot)
+                {
+                    if(i!=currentContactSlot)
+                    {
+                     
                     if(theCompany==requestSubject[i])
                     uniqueCompany=false;
+                    }
+                    
+                }
+                if(currentContactSlot>0)
+                        if(theCompany==requestSubject[currentContactSlot-1])
+                        uniqueCompany=false;
         }while(!uniqueCompany);
 
         //theSoftware = softwareName[UnityEngine.Random.Range(0, softwareName.Length)];
-        theCompany = companyName[UnityEngine.Random.Range(0, companyName.Length)];
+        //theCompany = companyName[UnityEngine.Random.Range(0, companyName.Length)];
         //theGame = gameName[UnityEngine.Random.Range(0, gameName.Length)];
         foundedDate = UnityEngine.Random.Range(1970, 2014);
         disbandedDate = UnityEngine.Random.Range(foundedDate+1, 2018);
@@ -658,24 +681,42 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
                 if (UnityEngine.Random.Range(0, 2) == 1)
                     isRequestingCompany = true;
                 else
-                    if (UnityEngine.Random.Range(0, 2) == 1)
-                    isRequestingProductByCompanyGame = true;
-                else
-                    isRequestingProductByCompanySoft = true;
-                             
+                {if (UnityEngine.Random.Range(0, 2) == 1)
+                    {
+                        isRequestingProductByCompanyGame = true;
+                    }
+                    else
+                    {
+                        isRequestingProductByCompanySoft = true;
+                    }
+                }    
+
+
+
                 if (isRequestingProductByCompanySoft)
                 {                                        
-                    message += requestInfoIntro[UnityEngine.Random.Range(0, requestInfoIntro.Length)] + "what software did " + theCompany + " make?";
-                    wikiTitle = theCompany;
+                    message += requestInfoIntro[UnityEngine.Random.Range(0, requestInfoIntro.Length)] + "what software did " + theCompany + " make? ";
+                    //wikiTitle = theCompany;
                     theImportantInfo = theSoftware;
+                    do
+                    {
+                        theFakeImportantInfo=softwareName[UnityEngine.Random.Range(0,softwareName.Length)];
+                    }while(theFakeImportantInfo==theImportantInfo);
+                    
                     requestSubject[currentContactSlot]=theCompany;
                     informationCompanyGetSoft();
                 }
                 else if(isRequestingProductByCompanyGame)
                 {
-                    message += requestInfoIntro[UnityEngine.Random.Range(0, requestInfoIntro.Length)] + "what game did " + theCompany + " develop?";
-                    wikiTitle = theCompany;
+                    message += requestInfoIntro[UnityEngine.Random.Range(0, requestInfoIntro.Length)] + "what game did " + theCompany + " develop? ";
+                    //wikiTitle = theCompany;
                     theImportantInfo = theGame;
+
+                    do
+                    {
+                        theFakeImportantInfo=gameName[UnityEngine.Random.Range(0,gameName.Length)];
+                    }while(theFakeImportantInfo==theImportantInfo);
+
                     requestSubject[currentContactSlot]=theCompany;
                     informationCompanyGetGame();
                 }
@@ -684,27 +725,36 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
                 {       
                     if (UnityEngine.Random.Range(0, 2) == 1)
                     {
-                        theGame = gameName[UnityEngine.Random.Range(0, gameName.Length)];
-                        theCompany = companyName[UnityEngine.Random.Range(0, companyName.Length)];
-                        message += requestInfoIntro[UnityEngine.Random.Range(0, requestInfoIntro.Length)] + "who was " + theGame + " made by?";
-                        wikiTitle = theGame;
+                        //theGame = gameName[UnityEngine.Random.Range(0, gameName.Length)];
+                        //theCompany = companyName[UnityEngine.Random.Range(0, companyName.Length)];
+                        message += requestInfoIntro[UnityEngine.Random.Range(0, requestInfoIntro.Length)] + "who was " + theGame + " made by? ";
+                        //wikiTitle = theGame;
                         theImportantInfo = theCompany;
+
+                    do
+                    {
+                        theFakeImportantInfo=companyName[UnityEngine.Random.Range(0,companyName.Length)];
+                    }while(theFakeImportantInfo==theImportantInfo);
+
                         requestSubject[currentContactSlot]=theGame;
                         informationGetCompanyGame();
                     }
                     else
                     {
-                        theSoftware = softwareName[UnityEngine.Random.Range(0, softwareName.Length)];
-                        theCompany = companyName[UnityEngine.Random.Range(0, companyName.Length)];
-                        message += requestInfoIntro[UnityEngine.Random.Range(0, requestInfoIntro.Length)] + "who was " + theSoftware + " made by?";
-                        wikiTitle = theSoftware;
+                        //portantInfo = theCompany;
+                        message += requestInfoIntro[UnityEngine.Random.Range(0, requestInfoIntro.Length)] + "who was " + theSoftware + " made by? ";
                         theImportantInfo = theCompany;
+                    do
+                    {
+                        theFakeImportantInfo=companyName[UnityEngine.Random.Range(0,companyName.Length)];
+                    }while(theFakeImportantInfo==theImportantInfo);
+
                         requestSubject[currentContactSlot]=theSoftware;
                         informationGetCompanySoft();
                     }
                 }
                 
-            UnityEngine.Random.InitState(System.Environment.TickCount+randomIncrement);
+            //UnityEngine.Random.InitState(System.Environment.TickCount+randomIncrement);
 
            if(UnityEngine.Random.Range(0,3)==2) //add preference for site/domain
             {
@@ -718,7 +768,7 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
                 {
                     theDomain[currentContactSlot]=siteDomain[UnityEngine.Random.Range(0,siteDomain.Length)];
                     if(UnityEngine.Random.Range(0,2)==1)
-                    message+=" I prefer to have the information from a source I trust. Please use "+theSite[currentContactSlot]+". ";
+                    message+=" I prefer to have the information from a source I trust. Please use "+theDomain[currentContactSlot]+". ";
                     else
                     {
                         message+=" Please take the info from a site with a ";
@@ -748,7 +798,7 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
         theRequest[currentContactSlot]=message;
         
         theContent[currentContactSlot]=wikiDescription;
-        theSite[currentContactSlot]= siteName[UnityEngine.Random.Range(0,theSite.Length)]+siteDomain[currentContactSlot];
+        //theSite[currentContactSlot]= siteName[UnityEngine.Random.Range(0,theSite.Length)]+siteDomain[currentContactSlot];
 
         bool uniqueName=false;
         do
@@ -770,6 +820,7 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
     }
     void Start()
     {
+        //UnityEngine.Random.InitState(System.Environment.TickCount);
         for(currentContactSlot=0;currentContactSlot<maxNrOfContacts;currentContactSlot++)
         {
             makeContact();Debug.Log("repeated");

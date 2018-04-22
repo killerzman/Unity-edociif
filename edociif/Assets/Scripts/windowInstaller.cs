@@ -249,7 +249,7 @@ public class windowInstaller : MonoBehaviour {
 					confirmBlockInstall.onClick.RemoveAllListeners();
 					confirmNext.onClick.AddListener(delegate{pressNext(stageConfirmInstall);});
 					confirmBack.onClick.AddListener(delegate{pressBack(stageConfirmInstall);});
-					confirmBlockInstall.onClick.AddListener(delegate{destroyWindow();});
+					confirmBlockInstall.onClick.AddListener(delegate{destroyWindow(evilTermAdded);});
 				}
 			}
 			if(difficulty >= 2){
@@ -280,7 +280,7 @@ public class windowInstaller : MonoBehaviour {
 					confirmBlockInstall.onClick.RemoveAllListeners();
 					confirmNext.onClick.AddListener(delegate{pressNext(stageConfirmInstall);});
 					confirmBack.onClick.AddListener(delegate{pressBack(stageConfirmInstall);});
-					confirmBlockInstall.onClick.AddListener(delegate{destroyWindow();});
+					confirmBlockInstall.onClick.AddListener(delegate{destroyWindow(evilTermAdded);});
 				}
 			}
 			if(difficulty == 3){
@@ -319,7 +319,7 @@ public class windowInstaller : MonoBehaviour {
 					confirmBlockInstall.onClick.RemoveAllListeners();
 					confirmNext.onClick.AddListener(delegate{pressNext(stageConfirmInstall);});
 					confirmBack.onClick.AddListener(delegate{pressBack(stageConfirmInstall);});
-					confirmBlockInstall.onClick.AddListener(delegate{destroyWindow();});
+					confirmBlockInstall.onClick.AddListener(delegate{destroyWindow(evilTermAdded);});
 				}
 			}
 		}
@@ -405,6 +405,16 @@ public class windowInstaller : MonoBehaviour {
 		offer3ToggleText.text = offerList[indexForOfferList] + nameOfOfferedProduct3;
 		offerList.RemoveAt(indexForOfferList);
 
+		if(Random.Range(0,2) % 2 == 1){
+			offer1Toggle.isOn = false;
+		}
+		if(Random.Range(0,2) % 2 == 1){
+			offer2Toggle.isOn = false;
+		}
+		if(Random.Range(0,2) % 2 == 1){
+			offer3Toggle.isOn = false;
+		}
+
 		List<Sprite> offerImgs = new List<Sprite>(offerPics);
 		int indexForOfferImgs = Random.Range(0, offerImgs.Count);
 		offer1Image.sprite = offerPics[indexForOfferImgs];
@@ -449,7 +459,13 @@ public class windowInstaller : MonoBehaviour {
 			   (confirmDropdown.value == 0) ||
 			   (evilTermAdded == true)
 			){
-				GameObject.Find("mistakePanel").GetComponent<mistakeHandler>().mistakeCounterToModify++;
+				GameObject mistakePanel = GameObject.Find("mistakePanel");
+				mistakePanel.GetComponent<mistakeHandler>().mistakeCounterToModify++;
+				mistakePanel.transform.root.Find("mistakeCounter/mistakeNumber").gameObject.GetComponent<Text>().text=
+				"x"+(mistakePanel.GetComponent<mistakeHandler>().mistakesUntilFail-mistakePanel.GetComponent<mistakeHandler>().mistakeCounterToModify);
+			}
+			else{
+				GameObject.Find("objectiveCounter").GetComponent<progressHandler>().incrementNumber();
 			}
 			
 		}
@@ -466,6 +482,27 @@ public class windowInstaller : MonoBehaviour {
 		//destroy the installer window
 		Destroy(contentStages.transform.parent.transform.parent.GetComponent<windowProp>().referenceTaskbarSlot);
 		Destroy(contentStages.transform.parent.transform.parent.gameObject);
+		//update the number of window duplicates when destroying the object
+		GameObject iconImage;
+		iconImage = GameObject.Find("iconImage");
+		iconImage.GetComponent<createWindow>().duplicates--;
+	}
+
+	void destroyWindow(bool evilTermAdded){ //this function is called only if the block install button is pressed
+		//check if evil term has been added
+		//if there was none and install was blocked, increase mistake counter
+		if(!evilTermAdded){
+			GameObject mistakePanel = GameObject.Find("mistakePanel");
+			mistakePanel.GetComponent<mistakeHandler>().mistakeCounterToModify++;
+			mistakePanel.transform.root.Find("mistakeCounter/mistakeNumber").gameObject.GetComponent<Text>().text=
+			"x"+(mistakePanel.GetComponent<mistakeHandler>().mistakesUntilFail-mistakePanel.GetComponent<mistakeHandler>().mistakeCounterToModify);
+		}
+		//else increment the objective counter
+		else{
+			GameObject.Find("objectiveCounter").GetComponent<progressHandler>().incrementNumber();
+		}
+		//then destroy the window for real
+		destroyWindow();
 	}
 	
 	IEnumerator progressBarTransition(){

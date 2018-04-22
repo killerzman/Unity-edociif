@@ -43,7 +43,7 @@ public class timeCountdown : MonoBehaviour {
 		try{
 			if(timeUntilZero > 0){
 				//show time left if time > 0
-				timeText.text = timeUntilZero.ToString();
+				timeText.text = ((int)timeUntilZero).ToString();
 			}
 			else{
 				timeText.text = "";

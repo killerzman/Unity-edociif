@@ -21,14 +21,74 @@ public class searchFunction : MonoBehaviour {
 	string theDomain;
 	string pageName;
 
+	public void openNewSetOfSuggestions(string pagenamer, string sitenamer)
+	{
+		foreach (Transform child in searchResultAreaReference.transform) 
+		{
+		if(child.gameObject.name!="searchResults")
+        GameObject.Destroy(child.gameObject);
+		}
+
+		foreach (Transform child in siteSpace.transform) 
+		{
+        GameObject.Destroy(child.gameObject);
+		}
+
+		for(int k=0;k<various_data.GetComponent<objectiveGeneratorSearchTask>().siteDomain.Length;k++)
+					{
+						GameObject theSpawnedSuggestion= Instantiate(prefabSearchResult);
+						theSpawnedSuggestion.transform.parent=searchResultAreaReference.transform;
+
+						theSpawnedSuggestion.GetComponent<searchResult>().pagename=pagenamer;
+						theSpawnedSuggestion.GetComponent<searchResult>().sitename=sitenamer;
+						theSpawnedSuggestion.GetComponent<searchResult>().domain=various_data.GetComponent<objectiveGeneratorSearchTask>().siteDomain[k];
+						
+
+
+						theSpawnedSuggestion.transform.Find("Text").gameObject.GetComponent<Text>().text=pagenamer+" - "+ sitenamer+various_data.GetComponent<objectiveGeneratorSearchTask>().siteDomain[k];
+					}
+		
+	}
+	 
+
 	public void openWebsiteTab()
 	{
 		GameObject spawnedChat=null;
 						GameObject siteBackground=null;
 						Debug.Log("the site gets opened");		
-						if(possibleSiteName=="bloatpedia")
+						if(possibleSiteName=="infopedia")
 						{
 							spawnedChat=Instantiate(siteSpace.GetComponent<gatherSiteInfo>().sitePrefab1,siteSpace.transform.position,siteSpace.transform.rotation,siteSpace.transform);
+							//spawnedChat.transform.parent=siteSpace.transform;
+							siteBackground=spawnedChat.transform.Find("siteBackground").gameObject;
+						}
+						if(possibleSiteName=="bloatpedia")
+						{
+							spawnedChat=Instantiate(siteSpace.GetComponent<gatherSiteInfo>().sitePrefab2,siteSpace.transform.position,siteSpace.transform.rotation,siteSpace.transform);
+							//spawnedChat.transform.parent=siteSpace.transform;
+							siteBackground=spawnedChat.transform.Find("siteBackground").gameObject;
+						}
+						if(possibleSiteName=="thumbler")
+						{
+							spawnedChat=Instantiate(siteSpace.GetComponent<gatherSiteInfo>().sitePrefab3,siteSpace.transform.position,siteSpace.transform.rotation,siteSpace.transform);
+							//spawnedChat.transform.parent=siteSpace.transform;
+							siteBackground=spawnedChat.transform.Find("siteBackground").gameObject;
+						}
+						if(possibleSiteName=="thetriviasource")
+						{
+							spawnedChat=Instantiate(siteSpace.GetComponent<gatherSiteInfo>().sitePrefab4,siteSpace.transform.position,siteSpace.transform.rotation,siteSpace.transform);
+							//spawnedChat.transform.parent=siteSpace.transform;
+							siteBackground=spawnedChat.transform.Find("siteBackground").gameObject;
+						}
+						if(possibleSiteName=="trivialfacts")
+						{
+							spawnedChat=Instantiate(siteSpace.GetComponent<gatherSiteInfo>().sitePrefab5,siteSpace.transform.position,siteSpace.transform.rotation,siteSpace.transform);
+							//spawnedChat.transform.parent=siteSpace.transform;
+							siteBackground=spawnedChat.transform.Find("siteBackground").gameObject;
+						}
+						if(possibleSiteName=="infogalore")
+						{
+							spawnedChat=Instantiate(siteSpace.GetComponent<gatherSiteInfo>().sitePrefab6,siteSpace.transform.position,siteSpace.transform.rotation,siteSpace.transform);
 							//spawnedChat.transform.parent=siteSpace.transform;
 							siteBackground=spawnedChat.transform.Find("siteBackground").gameObject;
 						}
@@ -36,7 +96,7 @@ public class searchFunction : MonoBehaviour {
 						{
 							int k=0; bool ok=false;
 
-							while(k<spawnedChat.transform.parent.GetComponent<gatherSiteInfo>().SITE_INFO.GetComponent<objectiveGeneratorSearchTask>().maxNrOfContacts&&!ok)
+							while(k<6&&!ok)
 							{
 								
 								if(pageName.ToLower()==spawnedChat.transform.parent.GetComponent<gatherSiteInfo>().SITE_INFO.GetComponent<objectiveGeneratorSearchTask>().requestSubject[k].ToLower())
@@ -44,10 +104,36 @@ public class searchFunction : MonoBehaviour {
 								k++;
 								Debug.Log(pageName.ToLower()+" vs "+spawnedChat.transform.parent.GetComponent<gatherSiteInfo>().SITE_INFO.GetComponent<objectiveGeneratorSearchTask>().requestSubject[k-1].ToLower());
 							}
+							
 							if(ok)
 							{
-								spawnedChat.transform.Find("siteDescription").gameObject.GetComponent<Text>().text=spawnedChat.transform.parent.gameObject.GetComponent<gatherSiteInfo>().SITE_INFO.GetComponent<objectiveGeneratorSearchTask>().theContent[k-1];
+								string getDomain, getSite, getContent, getFakeContent;
+
+								getSite=spawnedChat.transform.parent.GetComponent<gatherSiteInfo>().SITE_INFO.GetComponent<objectiveGeneratorSearchTask>().theSite[k-1];
+								getDomain=spawnedChat.transform.parent.GetComponent<gatherSiteInfo>().SITE_INFO.GetComponent<objectiveGeneratorSearchTask>().theDomain[k-1];
+								getContent=spawnedChat.transform.parent.GetComponent<gatherSiteInfo>().SITE_INFO.GetComponent<objectiveGeneratorSearchTask>().theContent[k-1];
+								getFakeContent=spawnedChat.transform.parent.GetComponent<gatherSiteInfo>().SITE_INFO.GetComponent<objectiveGeneratorSearchTask>().theFakeContent[k-1];
+
+								if(getSite==""&&getDomain=="")
+								spawnedChat.transform.Find("siteDescription").gameObject.GetComponent<Text>().text=getContent;
+								else
+								if(getSite.ToLower()==possibleSiteName.ToLower()&&getDomain.ToLower()==theDomain.ToLower())
+								spawnedChat.transform.Find("siteDescription").gameObject.GetComponent<Text>().text=getContent;
+								else
+								if(getSite==""&&getDomain.ToLower()==theDomain.ToLower())
+								spawnedChat.transform.Find("siteDescription").gameObject.GetComponent<Text>().text=getContent;
+								else
+								if(getSite.ToLower()==possibleSiteName.ToLower()&&getDomain.ToLower()=="")
+								spawnedChat.transform.Find("siteDescription").gameObject.GetComponent<Text>().text=getContent;
+								else
+									spawnedChat.transform.Find("siteDescription").gameObject.GetComponent<Text>().text=getFakeContent;;
+									
+
+
+
 								spawnedChat.transform.Find("siteTitle").gameObject.GetComponent<Text>().text=spawnedChat.transform.parent.GetComponent<gatherSiteInfo>().SITE_INFO.GetComponent<objectiveGeneratorSearchTask>().requestSubject[k-1];
+
+								
 							}
 						}
 						switch(theDomain)
@@ -113,8 +199,11 @@ public class searchFunction : MonoBehaviour {
 		{
 			GameObject theSpawnedSuggestion= Instantiate(prefabSearchResult);
 			theSpawnedSuggestion.transform.parent=searchResultAreaReference.transform;
-
+			theSpawnedSuggestion.GetComponent<searchResult>().domain=various_data.GetComponent<objectiveGeneratorSearchTask>().siteDomain[i];
+			theSpawnedSuggestion.GetComponent<searchResult>().sitename=theSearchText;
+			
 			theSpawnedSuggestion.transform.Find("Text").gameObject.GetComponent<Text>().text=theSearchText+various_data.GetComponent<objectiveGeneratorSearchTask>().siteDomain[i];
+		
 		}
 	}
 
@@ -146,7 +235,7 @@ public class searchFunction : MonoBehaviour {
 		showSiteWithAllDomains();
 		else
 		{
-			bool isTheWebsiteReal=true;
+			//bool isTheWebsiteReal=true;
 			char[] theConvertedText= theSearchText.ToCharArray();
 			int i=0;
 			while(i<theConvertedText.Length && theConvertedText[i]!='.')
@@ -156,7 +245,7 @@ public class searchFunction : MonoBehaviour {
 			}
 			if(i==theConvertedText.Length)
 			{
-			isTheWebsiteReal=false;
+			//isTheWebsiteReal=false;
 			Debug.Log("it's a word");
 
 				if(checkWord(theSearchText))
@@ -164,6 +253,9 @@ public class searchFunction : MonoBehaviour {
 					{
 						GameObject theSpawnedSuggestion= Instantiate(prefabSearchResult);
 						theSpawnedSuggestion.transform.parent=searchResultAreaReference.transform;
+
+						theSpawnedSuggestion.GetComponent<searchResult>().pagename=theSearchText;
+						theSpawnedSuggestion.GetComponent<searchResult>().sitename=various_data.GetComponent<objectiveGeneratorSearchTask>().siteName[k];
 
 						theSpawnedSuggestion.transform.Find("Text").gameObject.GetComponent<Text>().text=theSearchText+" - "+ various_data.GetComponent<objectiveGeneratorSearchTask>().siteName[k];
 					}
@@ -268,7 +360,10 @@ public class searchFunction : MonoBehaviour {
 							openWebsiteTab();
 						}
 						else
-							Debug.Log("404");
+							{
+								Debug.Log("404");
+								//spawnedChat.transform.Find("siteTitle").gameObject.GetComponent<Text>().text="404";
+							}
 					}
 				}
 				else

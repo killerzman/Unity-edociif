@@ -49,7 +49,7 @@ public class windowProp : MonoBehaviour{
 	// Update is called once per frame
 	void Update ()
     {
-        gameObject.transform.localScale = new Vector2((float)Screen.height / 600, (float)Screen.height / 600);
+        gameObject.transform.localScale = new Vector2((float)Screen.height / 720, (float)Screen.height / 720);
         theWindowContent.GetComponent<RectTransform>().sizeDelta = new Vector2(windowWidth,windowHeight); //setting dynamically the size of the window
 
         if (gameObject.transform.GetSiblingIndex() + 1 == gameObject.transform.parent.childCount)         //handler for focus priority

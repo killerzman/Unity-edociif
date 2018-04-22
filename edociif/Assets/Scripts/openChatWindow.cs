@@ -16,6 +16,8 @@ public class openChatWindow : MonoBehaviour {
 	public GameObject windowref;//to only allow one instance
 	public int dataPosition; //for the backup purposes
 
+	public Sprite chatTaskbarIcon;
+
 
 	public GameObject taskbarRef;
 	public GameObject prefabTaskbar;
@@ -33,8 +35,12 @@ public class openChatWindow : MonoBehaviour {
 		
 		theWindow.GetComponent<windowProp>().referenceTaskbarSlot=theTaskBarIcon;
 		theTaskBarIcon.GetComponent<openWindow>().windowObj=theWindow;
+
+		gameObject.transform.parent.gameObject.GetComponent<gatherContacts>().infoSource.GetComponent<assignFriends>().chatReference[dataPosition]=theWindow;
+
 		//windowName=theWindow.transform.Find("windowName").gameObject;
 		theWindow.GetComponent<windowProp>().windowName="Talk Time - "+gameObject.transform.Find("userName").GetComponent<Text>().text;
+		theTaskBarIcon.transform.Find("taskbarIconFrame").gameObject.GetComponent<Image>().sprite=chatTaskbarIcon;
 		//windowName.transform.parent=windowTabReference.transform;
 		
 		GameObject chatLog= theWindow.transform.Find("windowContent/chatArea/ScrollRect/chatLog").gameObject;
@@ -53,6 +59,7 @@ public class openChatWindow : MonoBehaviour {
 	gameObject.GetComponent<Button>().onClick.AddListener(CreateWindow);
 	windowTabReference=gameObject.transform.parent.gameObject.transform.parent.gameObject.transform.parent.gameObject.transform.parent.gameObject;
 	taskbarRef=gameObject.transform.root.Find( "Screen/taskbar/windowIcons").gameObject;
+	
 	}
 	
 	// Update is called once per frame

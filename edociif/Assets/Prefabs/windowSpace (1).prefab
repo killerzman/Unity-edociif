@@ -889,7 +889,7 @@ MonoBehaviour:
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
   m_Text: 
   m_CaretBlinkRate: 0.85
-  m_CaretWidth: 1
+  m_CaretWidth: 2
   m_ReadOnly: 0
 --- !u!114 &114515685019592732
 MonoBehaviour:
@@ -936,11 +936,16 @@ MonoBehaviour:
   shownSite: {fileID: 0}
   sitePrefab1: {fileID: 1872568938920892, guid: d4e25c4c5d386d742beee13af37a76e5,
     type: 2}
-  sitePrefab2: {fileID: 0}
-  sitePrefab3: {fileID: 0}
-  sitePrefab4: {fileID: 0}
-  sitePrefab5: {fileID: 0}
-  sitePrefab6: {fileID: 0}
+  sitePrefab2: {fileID: 1416295440837352, guid: 41223336e3c3f6d4582849d4d548d3a8,
+    type: 2}
+  sitePrefab3: {fileID: 1331004109982304, guid: 84902f2570c61ec4bb152cceda5afd96,
+    type: 2}
+  sitePrefab4: {fileID: 1987805384626586, guid: 2a5552c33ae136a4b8aff4b395b97406,
+    type: 2}
+  sitePrefab5: {fileID: 1079791371993808, guid: abb1502534ccdab49a7bfb4948ec1b68,
+    type: 2}
+  sitePrefab6: {fileID: 1348339659990032, guid: a486545d8cabcb0488fc842d7aa32f6d,
+    type: 2}
 --- !u!114 &114598653696163974
 MonoBehaviour:
   m_ObjectHideFlags: 1

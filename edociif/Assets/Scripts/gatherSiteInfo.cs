@@ -22,7 +22,7 @@ public class gatherSiteInfo : MonoBehaviour {
 	public GameObject sitePrefab6;
 	
 	void Start () {
-		
+		SITE_INFO=GameObject.Find("EventSystem");
 	}
 	
 	// Update is called once per frame
