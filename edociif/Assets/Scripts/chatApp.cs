@@ -83,7 +83,7 @@ public class chatApp : MonoBehaviour {
 			 }
 			 else
 			 {
-				mistakePanel.GetComponent<mistakeHandler>().mistakeCounterToModify++;
+				//mistakePanel.GetComponent<mistakeHandler>().mistakeCounterToModify++;
 				Debug.Log("wrong answer");
 				//mistakePanel.transform.root.Find("mistakeCounter/mistakeNumber").gameObject.GetComponent<Text>().text="x"+(mistakePanel.GetComponent<mistakeHandler>().mistakesUntilFail-mistakePanel.GetComponent<mistakeHandler>().mistakeCounterToModify);
 				gameObject.transform.Find("RequestKiller").gameObject.GetComponent<RequestKiller>().changeList(true);

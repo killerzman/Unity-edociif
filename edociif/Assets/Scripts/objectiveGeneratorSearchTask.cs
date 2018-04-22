@@ -140,7 +140,6 @@ public class objectiveGeneratorSearchTask : MonoBehaviour {
     "Ritecraft",
     "Brust",
     "Konter Srayk",
-    "Cream 4tres",
     "Mortal2",
     "Walrus Principle",
     "Surgeon Emulator",
