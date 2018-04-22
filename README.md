@@ -1,6 +1,6 @@
 **edociif**
 
-This is a puzzle game about personal online security.
+A puzzle game with different kind of attention-based, randomly generated tasks. Made in a span of 30 days for the competition Fiicode 2018.
 
 Do you have what it takes to be secure in the modern age of computing?
 
