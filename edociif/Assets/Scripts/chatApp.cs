@@ -59,8 +59,6 @@ public class chatApp : MonoBehaviour {
             senderName = inputNameField.text;
             chatLogText.text += "\nName changed to: " + senderName;
             inputNameField.text = "";
-            //assign the name to this chat window
-            gameObject.transform.parent.GetComponent<windowProp>().icon.GetComponent<globalName>().Name = senderName;
             
             //set focus to previous field
             inputNameField.Select();

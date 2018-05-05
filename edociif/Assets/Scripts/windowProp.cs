@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-[ExecuteInEditMode]
+//[ExecuteInEditMode]
 
 public class windowProp : MonoBehaviour{
 
