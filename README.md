@@ -16,6 +16,12 @@ Each task requires careful execution. Otherwise things might not go as planned.
 
 ---
 
+## Gameplay
+
+Gameplay footage available [here](https://www.youtube.com/watch?v=OPC_D18RERI).
+
+---
+
 ## Download / Links
 
 Downloads available [here](https://github.com/killerzman/edociif/releases).
