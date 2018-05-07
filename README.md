@@ -18,7 +18,7 @@ Each task requires careful execution. Otherwise things might not go as planned.
 
 ## Download / Links
 
-Downloads available [here](https://bitbucket.org/vrempremiulintai/edociif/downloads/).
+Downloads available [here](https://github.com/killerzman/edociif/releases).
 
 Source code is available to play around with.
 
