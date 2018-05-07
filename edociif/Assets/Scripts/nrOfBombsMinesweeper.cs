@@ -10,11 +10,12 @@ public class nrOfBombsMinesweeper : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		nrOfBombs = GameObject.Find("table").GetComponent<tableSpawner>().bombNumber;
+		
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		nrOfBombs = GameObject.Find("table").GetComponent<tableSpawner>().bombNumber;
 		text.text = nrOfBombs.ToString();
 	}
 }

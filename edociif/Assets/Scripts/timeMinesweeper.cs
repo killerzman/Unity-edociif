@@ -22,7 +22,8 @@ public class timeMinesweeper : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		isCountingDown = !GameObject.Find("table").GetComponent<tableSpawner>().firstClick &&
-						!GameObject.Find("table").GetComponent<tableSpawner>().isGameOver;
+						!GameObject.Find("table").GetComponent<tableSpawner>().isGameOver
+						&&!GameObject.Find("table").GetComponent<tableSpawner>().isGameWon;
 		if(coroutineStarted == false){
 			if(isCountingDown == true){
 				//starting countdown and setting a bool to reflect that
@@ -32,7 +33,11 @@ public class timeMinesweeper : MonoBehaviour {
 		}
 		if(timer >= 1000)
 			timer = 999;
+		
+
 		text.text = ((int)timer).ToString();
+
+		
 	}
 
 	IEnumerator timerFunc(){
